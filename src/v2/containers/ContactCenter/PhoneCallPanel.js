@@ -9,16 +9,19 @@ import OnGoingCallTimer from './OnGoingCallTimer';
 import ContactFeedback from './ContactFeedback';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { formatISO } from 'date-fns';
+import { post_Contact, post_Interactions } from '../../../services/Contact';
 
 const PhoneCallPanel = ({
     contactVia, contact, customer, setContact,
-    handleEndContact, handlePostContact, handlePostInteractions
+    handleEndContact
 }) => {
     const [ panelState, setPanelState ] = useState({
         status: 'New',
     });
     const [ errors, setErrors ] = useState({});
     const [ loading, setLoading ] = useState(true);
+
+    const { store_group_code, contact_id } = contact;
 
     const theme = useTheme();
     const intl = useIntl();
@@ -44,11 +47,9 @@ const PhoneCallPanel = ({
         
         let newContact = { 
             ...contact,
-            ...{ 
-                status: 'Started',
-                contact_start_date: currentDateISO,
-                contact_date: currentDateISO,
-            }
+            status: 'Started',
+            contact_start_date: currentDateISO,
+            contact_date: currentDateISO
         };
 
         setContact(newContact);
@@ -71,34 +72,31 @@ const PhoneCallPanel = ({
                 t2: contact.another_reason,
             });
         });
-
-        setTimeout(() => {
-            handlePostContact({
+        
+        post_Contact({
+            store_group_code, contact_id,
+            params: {
                 ...newContact,
-                ...{
-                    interactions,
+                interactions
+            }
+        })
+        .then((res) => {
+            newContact = { 
+                ...newContact,
+                ...{ 
+                    contact_id: res.contact_id,
+                    interactions: res.interactions,
                 }
-            })
-            .then((res) => {
-                newContact = { 
-                    ...newContact,
-                    ...{ 
-                        contact_id: res.contact_id,
-                        interactions: res.interactions,
-                    }
-                };
+            };
 
-                setContact(newContact);
-                setPanelState({
-                    ...panelState,
-                    ...{
-                        status: 'On Going',
-                        start_date: currentDate,
-                    }
-                });
-                setLoading(false);
-            })
-        }, 1000);
+            setContact(newContact);
+            setPanelState({
+                ...panelState,
+                status: 'On Going',
+                start_date: currentDate
+            });
+            setLoading(false);
+        });
     }
 
     const handleEndCall = () => {
@@ -118,31 +116,28 @@ const PhoneCallPanel = ({
 
         let newPanelState = {
             ...panelState,
-            ...{
-                end_date: currentDate,
-            }
+            end_date: currentDate
         };
 
         setPanelState(newPanelState);
 
         setTimeout(() => {
-            handlePostInteractions([newInter])
+            post_Interactions({
+                store_group_code, contact_id,
+                params: [newInter]
+            })
             .then((result) => {
                 setContact({
                     ...contact,
-                    ...{
-                        interactions: [
-                            ...contact.interactions,
-                            ...result,
-                        ]
-                    }
+                    interactions: [
+                        ...contact.interactions,
+                        ...result,
+                    ]
                 });
 
                 newPanelState = {
                     ...newPanelState,
-                    ...{
-                        status: 'Waiting Feedback',
-                    }
+                    status: 'Waiting Feedback'
                 };
 
                 setPanelState(newPanelState);
@@ -211,7 +206,11 @@ const PhoneCallPanel = ({
 
         setTimeout(() => {
             if (newInters.length)
-                handlePostInteractions(newInters).then(() => handleEndContact());
+                post_Interactions({
+                    store_group_code, contact_id,
+                    params: newInters
+                })
+                .then(() => handleEndContact());
             else 
                 handleEndContact();
         }, 1000);

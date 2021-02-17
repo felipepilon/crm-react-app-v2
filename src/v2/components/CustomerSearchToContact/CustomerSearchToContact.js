@@ -18,7 +18,7 @@ const CustomerSearchToContact = () => {
             width='20em'
         >
             <Autocomplete inputLabel='Customer'
-                valueField='customer_id'
+                valueField='customer_code'
                 filterField='search_index'
                 labelField='name'
                 getOptionsFnc={get_Customers}
@@ -26,7 +26,7 @@ const CustomerSearchToContact = () => {
                 getOptionsField='search_index'
                 labelOptionField={(({opt}) => {
                     return (
-                        <Link component={LinkRouter} to={`/v2/${store_group_code}/workspace/customers/${opt.customer_id}/contact`}>
+                        <Link component={LinkRouter} to={`/v2/${store_group_code}/workspace/customers/${opt.customer_code}/contact`}>
                             <Typography variant='subtitle2'>
                                 {opt.cpf ? LabelMasks.cpf(opt.cpf) : ''} {opt.name ? opt.name : ''}
                             </Typography>

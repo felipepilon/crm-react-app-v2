@@ -12,7 +12,7 @@ const loadingStatus = 'Loading customer';
 const CustomerContact = () => {
     const { addStatus, removeStatus } = useContext(AppStateContext);
 
-    const { store_group_code, customer_id } = useRouteMatch().params;
+    const { store_group_code, customer_code } = useRouteMatch().params;
 
     const [ customer, setCustomer ] = useState();
     const [ loading, setLoading ] = useState(true);
@@ -22,13 +22,13 @@ const CustomerContact = () => {
     useEffect(() => {
         handleLoadCustomer();
     // eslint-disable-next-line
-    }, [store_group_code, customer_id]);
+    }, [store_group_code, customer_code]);
 
     const handleLoadCustomer = () => {
         addStatus(loadingStatus);
 
         setTimeout(() => {
-            get_Customer({store_group_code, customer_id})
+            get_Customer({store_group_code, customer_code})
             .then((res) => {
                 setCustomer(res);
                 removeStatus(loadingStatus);

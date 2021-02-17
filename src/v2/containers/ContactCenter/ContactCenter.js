@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import StoreSelect from '../../components/StoreSelect';
 import { useLocation } from 'react-router-dom';
 import { AppStateContext } from '../../contexts/AppState';
-import { post_Contact } from '../../../services/Contact';
+import { put_Contact } from '../../../services/Contact';
 import SalesmanSelect from '../../components/SalesmanSelect';
 import ContactReason from '../../components/ContactReasonSelect';
 import WhatsAppButton from './WhatsAppButton';
@@ -20,9 +20,9 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
     const theme = useTheme();
     
     const [ contact, setContact ] = useState({
+        store_group_code,
         status: 'New',
-        store_group_id: customer.store_group_id,
-        customer_id: customer.customer_id,
+        customer_code: customer.customer_code,
         reasons: []
     });
     const [ contactVia, setContactVia ] = useState(null);
@@ -32,7 +32,7 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
     const handleWhatsAppButtonClick = () => handleContactViaSelected('WhatsApp');
 
     const handlePhoneCallButtonClick = () => handleContactViaSelected('Phone Call');
-
+    
     const handleContactViaSelected = (newContactVia) => {
         let newErrors = {}
 
@@ -67,18 +67,20 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
     const handleAnotherReasonChange = (another_reason) => setContact((prevContact) => ({...prevContact, another_reason}));
 
     const handleEndContact = () => {
-        post_Contact({
+        put_Contact({
+            store_group_code,
             contact_id: contact.contact_id,
-            customer_id: contact.customer_id,
-            status: 'Completed',
-            contact_end_date: new Date(),
-            reminder_date: loc.state && loc.state.reminder_date
+            params: {
+                status: 'Completed',
+                contact_end_date: new Date(),
+                reminder_date: loc.state && loc.state.reminder_date
+            }
         })
         .then(() => {
             setContact({
+                store_group_code,
                 status: 'New',
-                store_group_id: contact.store_group_id,
-                customer_id: contact.customer_id,
+                customer_code: contact.customer_code,
                 store_code: contact.store_code,
                 salesman_code: contact.salesman_code,
                 reasons: []

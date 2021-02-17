@@ -20,8 +20,8 @@ export const get_CustomersIndex = (params) => {
     .catch(handleError);
 }
 
-export const get_Customer = ({store_group_code, customer_id}) => {
-    return api.get(`/v2/${store_group_code}/customers/${customer_id}`)
+export const get_Customer = ({store_group_code, customer_code}) => {
+    return api.get(`/v2/${store_group_code}/customers/${customer_code}`)
     .then(handleResponse)
     .catch(handleError);
 }
