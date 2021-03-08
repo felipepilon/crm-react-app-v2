@@ -1,15 +1,19 @@
 import { Link, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
-import { Link as LinkRouter, useRouteMatch } from 'react-router-dom';
+import { Link as LinkRouter, useLocation } from 'react-router-dom';
+import { WorkspaceContext } from '../../contexts/Workspace';
 
 const MenuItem = ({iconComp, to, title}) => {
+    const { store_group_code } = useContext(WorkspaceContext);
     const intl = useIntl();
-
-    const { url } = useRouteMatch();
+    const loc = useLocation();
 
     return (
-        <Link component={LinkRouter} to={`${url}${to}`}>
+        <Link component={LinkRouter} to={{
+            pathname: `/v2/${store_group_code}/workspace${to}`,
+            state: {...loc.state, from: loc}
+        }}>
             <ListItem button>
                 {
                     iconComp &&

@@ -22,12 +22,7 @@ const Password = () => {
     {
         e.preventDefault();
 
-        post_SignIn({
-            data: {
-                email: user.email,
-                password
-            }
-        })
+        post_SignIn({email: user.email, password})
         .then(() => {
             authenticate();
         })

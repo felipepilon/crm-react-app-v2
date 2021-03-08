@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Customers from '../Customers';
+import Users from '../Users'
 
 const AppRouter = () => {
     const match = useRouteMatch();
@@ -13,6 +14,9 @@ const AppRouter = () => {
             </Route>
             <Route path={`${path}/customers`}>
                 <Customers/>
+            </Route>
+            <Route path={`${path}/users`}>
+                <Users/>
             </Route>
             <Route path={`${path}*`}>
                 <div>Not Found Workspace</div>

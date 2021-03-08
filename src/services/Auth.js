@@ -8,24 +8,20 @@ import {
 import { handleResponse, handleError } from '../utils/ResponseHandler';
 import api from './API';
 
-export const get_User = (user) => {
-    return api.get('/auth/user', {
-        params: {
-            email: user.email,
-        }
-    })
+export const get_UserByEmail = ({email}) => {
+    return api.get(`/v2/auth/user/byEmail/${email}`)
     .then(handleResponse)
     .catch(handleError);
 }
 
 export const get_AuthUser = () => {
-    return api.get('/auth/authUser')
+    return api.get('v2/auth/authUser')
     .then(handleResponse)
     .catch(handleError);
 }
 
-export const post_SignIn = ({data}) => {
-    return api.post('/auth/signIn', data)
+export const post_SignIn = ({email, password}) => {
+    return api.post('v2/auth/signIn', {email, password})
     .then((res) => {
         if (res.data && res.data.refresh_token)
             setRefreshToken(res.data.refresh_token);

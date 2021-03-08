@@ -4,6 +4,7 @@ import WorkspaceContextProvider from '../../contexts/Workspace';
 import WorkBar from '../WorkBar/WorkBar';
 import WorkspaceWrapper from './WorkspaceWrapper';
 import WorkspaceRouter from './WorkspaceRouter';
+import PageWrapper from '../../components/Page/PageWrapper';
 import { useRouteMatch } from 'react-router-dom';
 import MenuDrawer from '../MenuDrawer';
 
@@ -21,7 +22,9 @@ const Workspace = () => {
             <WorkspaceWrapper>
                 <WorkBar/>
                 <MenuDrawer/>
-                <WorkspaceRouter/>
+                <PageWrapper>
+                    <WorkspaceRouter/>
+                </PageWrapper>
             </WorkspaceWrapper>
         </WorkspaceContextProvider>
     );

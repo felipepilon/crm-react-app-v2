@@ -7,6 +7,8 @@ const AppStateContextProvider = ({children}) => {
     const [ isMenuOpen, setMenuOpen ] = useState(false);
     const [ sucessSnack, setSucessSnack ] = useState('');
     const [ currency, setCurrency ] = useState('BRL');
+    const [ error, setError ] = useState();
+    const [ pageTitle, setPageTitle] = useState('CRM');
 
     const addStatus = (sts) => setStatusStack((prev) => [...prev, sts]);
 
@@ -18,7 +20,9 @@ const AppStateContextProvider = ({children}) => {
             addStatus, removeStatus,
             isMenuOpen, setMenuOpen,
             sucessSnack, setSucessSnack,
-            currency, setCurrency
+            currency, setCurrency,
+            error, setError,
+            pageTitle, setPageTitle
         }}
         >
             { children }

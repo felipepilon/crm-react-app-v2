@@ -250,5 +250,14 @@
     "Loading customer": "Carregando cliente",
     "404 - Not Found": "404 - Não Encontrado",
     "Oops": "Vish...",
-    "Seems like this page do not exists": "Parece que esta página não existe"
+    "Seems like this page do not exists": "Parece que esta página não existe",
+    "Updated At": "Data Atualização",
+    "Updated By": "Atualizado Por",
+    "Search {title}": "Buscar {title}",
+    "Loading": "Carregando",
+    "Updating {modelName}": "Atualizando {modelName}",
+    "Loading {modelName}": "Carregando {modelName}",
+    "Add {modelName}": "Adicionar {modelName}",
+    "Update {modelName}": "Atualizar {modelName}",
+    "Security": "Segurança"
 }

@@ -4,7 +4,7 @@ export default (ability, user, authenticated) => {
     const { can, cannot, rules } = new AbilityBuilder();
 
     console.log('AbilityUpdater', user, authenticated)
-
+    
     if (!authenticated) 
     {
         cannot('manage', 'all');
