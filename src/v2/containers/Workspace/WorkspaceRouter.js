@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Customers from '../Customers';
 import Users from '../Users'
+import WorkspaceHome from '../WorkspaceHome';
 
 const AppRouter = () => {
     const match = useRouteMatch();
@@ -10,7 +11,7 @@ const AppRouter = () => {
     return (
         <Switch>
             <Route exact path={path}>
-                <div>Exact</div>
+                <WorkspaceHome/>
             </Route>
             <Route path={`${path}/customers`}>
                 <Customers/>
