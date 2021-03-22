@@ -45,7 +45,7 @@ const ReserveCheckout = (props) => {
                     />
                     <KeyboardDatePicker
                         style={{marginTop: theme.spacing(2)}}
-                        label={intl.formatMessage({ id: 'Remember Me At' })}
+                        label={intl.formatMessage({ id: 'Remember me at' })}
                         value={props.reminderDate}
                         onChange={props.setReminderDate}
                         format="dd/MM/yyyy"

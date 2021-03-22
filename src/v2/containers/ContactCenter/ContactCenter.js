@@ -145,14 +145,14 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
                         store_group_code={store_group_code}
                         store_code={contact.store_code}
                         error={errors.store_code}
-                        handleStoreIdChange={handleStoreIdChange}
+                        handleChange={handleStoreIdChange}
                     />
                     <SalesmanSelect
                         store_group_code={store_group_code}
                         store_code={contact.store_code}
                         salesman_code={contact.salesman_code}
                         error={errors.salesman_code}
-                        handleSalesmanIdChange={handleSalesmanIdChange}
+                        handleChange={handleSalesmanIdChange}
                     />
                     <ContactReason 
                         store_group_code={store_group_code}

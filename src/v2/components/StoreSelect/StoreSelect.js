@@ -3,7 +3,7 @@ import { Select, MenuItem, InputLabel, FormControl, useTheme, FormHelperText } f
 import { FormattedMessage } from 'react-intl';
 import { get_Stores } from '../../../services/Store';
 
-const StoreSelect = ({store_group_code, store_code, handleStoreIdChange, error, disabled}) => {
+const StoreSelect = ({store_group_code, store_code, handleChange, error, disabled}) => {
     const [ options, setOptions ] = useState([]);
     const value = store_code;
 
@@ -23,7 +23,7 @@ const StoreSelect = ({store_group_code, store_code, handleStoreIdChange, error, 
     }, [store_group_code]);
 
     useEffect(() => {
-        handleStoreIdChange(options.length === 1 ? options[0].value : null);
+        handleChange(options.length === 1 ? options[0].value : null);
     // eslint-disable-next-line
     }, [options]);
 
@@ -36,7 +36,7 @@ const StoreSelect = ({store_group_code, store_code, handleStoreIdChange, error, 
                 labelId='store-select-label'
                 id="demo-simple-select-outlined"
                 value={value || ''}
-                onChange={(e) => handleStoreIdChange(e.target ? e.target.value : '')}
+                onChange={(e) => handleChange(e.target ? e.target.value : '')}
                 disabled={disabled}
             >
                 {
