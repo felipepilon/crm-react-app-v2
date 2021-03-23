@@ -5,6 +5,7 @@ import { useLocation } from 'react-router';
 
 const title = 'Users';
 const modelName = 'User';
+const modelTitle = 'User';
 const rowId = 'user_id';
 
 const searchSchema = {
@@ -48,6 +49,7 @@ const editSchema = {
         {
             key: 'main',
             fields: [
+                { key: 'email', title: 'Email', comp: 'label' },
                 { key: 'first_name',  title: 'First Name', required: true },
                 { key: 'last_name',  title: 'Last Name', required: true },
                 { key: 'role', title: 'Role', comp: 'select', options: ['admin', 'salesman', 'manager'], intlPrefix: 'user.role.', required: true, hideEmpty: true },
@@ -73,9 +75,7 @@ const addValues = {
 
 const UsersReport = () => {
     const loc = useLocation();
-
-    console.log('loc', loc)
-
+    
     const columns = [
         { key: 'name', title: 'Name', value: (row) => `${row.first_name} ${row.last_name}` },
         { key: 'email', title: 'Email' },
@@ -88,7 +88,7 @@ const UsersReport = () => {
     ]
 
     return (
-        <ReportPage title={title} modelName={modelName}
+        <ReportPage title={title} modelName={modelName} modelTitle={modelTitle}
             columns={columns} getDataFnc={get_Users} searchSchema={searchSchema}
             addSchema={addSchema} addValues={addValues} addFnc={post_User}
             editSchema={editSchema} editFnc={put_User}

@@ -5,7 +5,7 @@ import Workspace from './containers/workspace/Workspace';
 import WorkspaceV2 from './v2/containers/Workspace';
 import PrivateRoute from './components/PrivateRoute';
 import UnauthRoute from './components/UnauthRoute';
-import StoreGroupSelect from './v2/containers/StoreGroupSelect';
+import StoreGroupsRouter from './v2/containers/StoreGroups/StoreGroupsRouter';
 
 const AppRouter = () => {
     return (
@@ -14,7 +14,7 @@ const AppRouter = () => {
                 <Login/>
             </UnauthRoute>
             <PrivateRoute path='/v2/storeGroups'>
-                <StoreGroupSelect/>
+                <StoreGroupsRouter/>
             </PrivateRoute>
             <PrivateRoute path='/workspace'>
                 <Workspace/>

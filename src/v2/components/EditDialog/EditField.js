@@ -22,7 +22,7 @@ const EditField = ({field, errors, ...other}) => {
 
     return (
         <Box display='flex' alignItems='center' padding={1} width='100%'>
-            <Typography variant='body1' style={{width: '35%'}}>
+            <Typography variant='body1' style={{width: '40%'}}>
                 {
                     field.title &&
                     <FormattedMessage id={field.title}/>

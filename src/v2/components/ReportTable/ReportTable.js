@@ -5,18 +5,17 @@ import { Box, Paper } from '@material-ui/core';
 import DenseSwitch from './DenseSwitch';
 import Pagination from './Pagination';
 import TableBody from './TableBody';
-import { useHistory, useLocation } from 'react-router-dom';
-import { WorkspaceContext } from '../../contexts/Workspace';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { AppStateContext } from '../../contexts/AppState';
 import EditIcon from '@material-ui/icons/Edit';
 import { AbilityContext } from '../../../contexts/Can';
 
 const ReportTable = ({columns, filters, getDataFnc, lastUpdate, handleEdit, loadingStatus, modelName}) => {
     const { setError } = useContext(AppStateContext);
-    const { store_group_code } = useContext(WorkspaceContext);
     const { addStatus, removeStatus } = useContext(AppStateContext)
     const ability = useContext(AbilityContext);
 
+    const match = useRouteMatch();
     const hist = useHistory();
     const loc = useLocation();
 
@@ -34,7 +33,7 @@ const ReportTable = ({columns, filters, getDataFnc, lastUpdate, handleEdit, load
         addStatus(_loadingStatus);
 
         if (getDataFnc) {
-            getDataFnc({store_group_code, params: filters})
+            getDataFnc({...match.params, params: filters})
             .then((res) => {
                 setData(res);
                 removeStatus(_loadingStatus);

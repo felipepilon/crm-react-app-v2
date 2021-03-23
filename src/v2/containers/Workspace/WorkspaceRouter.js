@@ -4,6 +4,7 @@ import Customers from '../Customers';
 import Users from '../Users'
 import WorkspaceHome from '../WorkspaceHome';
 import Reserves from '../Reserves';
+import StoreGroups from '../StoreGroups';
 
 const AppRouter = () => {
     const match = useRouteMatch();
@@ -22,6 +23,9 @@ const AppRouter = () => {
             </Route>
             <Route path={`${path}/reserves`}>
                 <Reserves/>
+            </Route>
+            <Route path={`${path}/storeGroups`}>
+                <StoreGroups/>
             </Route>
             <Route path={`${path}*`}>
                 <div>Not Found Workspace</div>

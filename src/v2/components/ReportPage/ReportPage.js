@@ -13,7 +13,7 @@ import { Can } from '../../../contexts/Can';
 const ReportPage = ({
     title, columns, getDataFnc, searchSchema, addSchema,
     addValues, addFnc, editSchema, editFnc, 
-    modelName, getFnc, rowId
+    modelName, modelTitle, getFnc, rowId
 }) => {
     const { setPageTitle } = useContext(AppStateContext);
 
@@ -27,7 +27,7 @@ const ReportPage = ({
     const [lastUpdate, setLastUpdate] = useState(new Date());
     const [selected, setSelected] = useState({});
 
-    const _modelName = intl.formatMessage({id: modelName});
+    const _modelTitle = intl.formatMessage({id: modelTitle || 'Record'});
     
     useEffect(() => {
         if (title)
@@ -77,7 +77,8 @@ const ReportPage = ({
             />
             {
                 searchSchema &&
-                <SearchDialog modelName={_modelName} 
+                <SearchDialog 
+                    modelTitle={_modelTitle} 
                     schema={searchSchema} 
                     values={filters}
                     open={filterOpen} 
@@ -87,7 +88,8 @@ const ReportPage = ({
             }
             {
                 addSchema && 
-                <EditDialog modelName={_modelName}
+                <EditDialog 
+                    modelTitle={_modelTitle} 
                     schema={addSchema}
                     open={addOpen}
                     values={addValues}
@@ -99,7 +101,8 @@ const ReportPage = ({
             }
             {
                 editSchema &&
-                <EditDialog modelName={_modelName}
+                <EditDialog 
+                    modelTitle={_modelTitle}
                     schema={editSchema}
                     open={updateOpen}
                     values={selected}

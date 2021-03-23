@@ -253,12 +253,17 @@
     "Seems like this page do not exists": "Parece que esta página não existe",
     "Updated At": "Data Atualização",
     "Updated By": "Atualizado Por",
-    "Search {title}": "Buscar {title}",
+    "Search {modelTitle}": "Buscar {modelTitle}",
     "Loading": "Carregando",
-    "Updating {modelName}": "Atualizando {modelName}",
-    "Loading {modelName}": "Carregando {modelName}",
-    "Add {modelName}": "Adicionar {modelName}",
-    "Update {modelName}": "Atualizar {modelName}",
+    "Updating {modelTitle}": "Atualizando {modelTitle}",
+    "Loading {modelTitle}": "Carregando {modelTitle}",
+    "Add {modelTitle}": "Adicionar {modelTitle}",
+    "Update {modelTitle}": "Atualizar {modelTitle}",
     "Security": "Segurança",
-    "Loading Agenda": "Carregando Agenda"
+    "Loading Agenda": "Carregando Agenda",
+    "Store Group Code": "Código do Grupo",
+    "Submit": "Confirmar",
+    "Update": "Atualizar",
+    "Search": "Buscar",
+    "Record": "Registro"
 }

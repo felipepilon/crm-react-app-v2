@@ -1,27 +1,26 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { useRouteMatch } from 'react-router';
 import { AppStateContext } from '../../contexts/AppState';
-import { WorkspaceContext } from '../../contexts/Workspace';
 import LoadingAbsoluteBox from '../LoadingAbsoluteBox/LoadingAbsoluteBox';
 import EditDialogContent from './EditDialogContent';
 
 const EditDialog = ({
-    open, handleClose, title, modelName, schema, editFnc,
-    handleSubmit, values, action, getFnc, rowId, loadingStatus
+    open, handleClose, title, modelTitle, schema, editFnc,
+    handleSubmit, values, action, getFnc, rowId
 }) => {
-    const { store_group_code } = useContext(WorkspaceContext);
     const { setError: setErrorContext } = useContext(AppStateContext);
 
     const theme = useTheme();
-    const intl = useIntl();
-
+    const match = useRouteMatch();
+    
     const [_values, _setValues] = useState(values || {});
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(null);
 
     const loadValues = () => {
-        setLoading(['Loading {modelName}', {modelName}]);
+        setLoading(['Loading {modelTitle}', {modelTitle}]);
         setError({});
 
         if (action === 'update') {
@@ -30,7 +29,7 @@ const EditDialog = ({
                 _handleClose();
             }
 
-            getFnc({store_group_code, [rowId]: values[rowId]})
+            getFnc({...match.params, [rowId]: values[rowId]})
             .then((res) => {
                 _setValues(res);
                 setLoading(null);
@@ -54,7 +53,7 @@ const EditDialog = ({
     const _handleSubmit = (e) => {
         e.preventDefault();
 
-        setLoading(['Updating {modelName}', {modelName}]);
+        setLoading(['Updating {modelTitle}', {modelTitle}]);
 
         if (!editFnc) {
             console.error('No update function found (editFnc)');
@@ -62,7 +61,11 @@ const EditDialog = ({
             return;
         }
 
-        editFnc({store_group_code, [rowId]: values[rowId], params: _values})
+        editFnc({
+            ...match.params, 
+            [rowId]: values && rowId && values[rowId],
+            params: _values
+        })
         .then(() => {
             setLoading(null);
             handleSubmit();
@@ -101,8 +104,8 @@ const EditDialog = ({
                     color: theme.palette.primary.contrastText
                 }}>
                     <FormattedMessage 
-                        id={title || (action === 'add' ? 'Add {modelName}' : 'Update {modelName}')} 
-                        values={modelName && {modelName: intl.formatMessage({id: modelName})}}
+                        id={title || (action === 'add' ? 'Add {modelTitle}' : 'Update {modelTitle}')} 
+                        values={{modelTitle}}
                     />
                 </DialogTitle>
                 <DialogContent>

@@ -28,21 +28,6 @@ const Workspace = () => {
             </WorkspaceWrapper>
         </WorkspaceContextProvider>
     );
-
-    /*
-    <Box
-            display='flex'
-            flexDirection='column'
-            minHeight='0'
-            height='100%'
-        >
-            <WorkBar/>
-            <MenuDrawer/>
-            <WorkspaceWrapper/>
-            <Box height='30px'>Footer</Box>
-            <SuccessSnack/>
-        </Box>
-    */
 }
  
 export default Workspace;

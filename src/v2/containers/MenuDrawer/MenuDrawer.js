@@ -23,8 +23,13 @@ const MenuDrawer = () => {
                 </List>
                 <Divider/>
                 <List>
-                    <Can I='read' a='Users'>
+                    <Can I='read' a='User'>
                         <MenuItem title='Users' to='/users'/>
+                    </Can>
+                </List>
+                <List>
+                    <Can I='read' a='StoreGroup'>
+                        <MenuItem title='Store Groups' to='/storeGroups'/>
                     </Can>
                 </List>
             </Box>

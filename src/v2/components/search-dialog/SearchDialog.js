@@ -1,11 +1,10 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@material-ui/core';
 import React, { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import SearchDialogContent from './SearchDialogContent';
 
-const SearchDialog = ({open, handleClose, title, modelName, schema, handleSubmit, values, defaultValues}) => {
+const SearchDialog = ({open, handleClose, title, modelTitle, schema, handleSubmit, values, defaultValues}) => {
     const theme = useTheme();
-    const intl = useIntl();
 
     const [_values, _setValues] = useState(values || {});
 
@@ -35,7 +34,7 @@ const SearchDialog = ({open, handleClose, title, modelName, schema, handleSubmit
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.primary.contrastText
                 }}>
-                    <FormattedMessage id={title || 'Search {title}'} values={modelName && {title: intl.formatMessage({id: modelName})}}/>
+                    <FormattedMessage id={title || 'Search {modelTitle}'} values={{modelTitle}}/>
                 </DialogTitle>
                 <DialogContent>
                     <SearchDialogContent schema={schema} values={_values} handleFieldChange={handleFieldChange}/>
