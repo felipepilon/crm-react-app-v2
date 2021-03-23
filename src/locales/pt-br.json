@@ -230,8 +230,8 @@
     "Canceled": "Cancelado",
     "Thanks": "Agradecimento",
     "Missing": "Saudades",
-    "Today's Sales": "Vendas de Hoje",
-    "30 Days no Buying": "30 Dias Sem Comprar",
+    "Today's Sales - {sale_date}": "Vendas de Hoje - {sale_date}",
+    "30 Days no Buying - {sale_date}": "30 Dias Sem Comprar - {sale_date}",
     "Loading previous contacts...": "Carregando contatos anteriores...",
     "This customer was never contacted": "Este cliente nunca foi contatado",
     "<Last contact message>": "Este cliente foi contatado pela última vez em {contact_date} por {salesman_name} na loja {store_name} para falar sobre {reasons}",
@@ -259,5 +259,6 @@
     "Loading {modelName}": "Carregando {modelName}",
     "Add {modelName}": "Adicionar {modelName}",
     "Update {modelName}": "Atualizar {modelName}",
-    "Security": "Segurança"
+    "Security": "Segurança",
+    "Loading Agenda": "Carregando Agenda"
 }

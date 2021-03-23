@@ -7,7 +7,7 @@ const AppStateContextProvider = ({children}) => {
     const [ isMenuOpen, setMenuOpen ] = useState(false);
     const [ sucessSnack, setSucessSnack ] = useState('');
     const [ currency, setCurrency ] = useState('BRL');
-    const [ error, setError ] = useState();
+    const [ error, setError ] = useState(null);
     const [ pageTitle, setPageTitle] = useState('CRM');
 
     const addStatus = (sts) => setStatusStack((prev) => [...prev, sts]);

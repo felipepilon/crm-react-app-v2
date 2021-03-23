@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Box, Button, Container, useTheme } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import { useLocation } from 'react-router-dom';
-import Agenda from '../../../components/agenda-view/Agenda';
 import { Can } from '../../../contexts/Can';
 import SalesPanel from '../../../components/sales-view/SalesPanel';
 import { Link as RouterLink } from 'react-router-dom';
 import { WorkspaceContext } from '../../contexts/Workspace';
+import AgendaSummaryView from '../AgendaSummaryView';
 
 const WorkspaceHome = () => {
     const { store_group_code } = useContext(WorkspaceContext)
@@ -16,10 +16,8 @@ const WorkspaceHome = () => {
 
     return (
         <Container style={{display: 'flex', paddingTop: theme.spacing(2)}}>
-            <Box
-                width='20%'
-                padding={1}
-            >
+            <AgendaSummaryView/>
+            <Box width='20%' padding={1}>
                 <Button fullWidth variant='contained' color='primary' href='#'
                     component={RouterLink} to={{
                         pathname: `/v2/${store_group_code}/workspace/reserves/add`,
