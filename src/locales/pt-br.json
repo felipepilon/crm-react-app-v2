@@ -154,7 +154,7 @@
     "Total Sales Unit": "Quantidade Total Vendas",
     "Units Per Sale": "Peças Por Atendimento",
     "Inform a feedback": "Informe um feedback",
-    "User Stores": "Associação Usuários Lojas",
+    "User Stores": "Associação Usuário Lojas",
     "User": "Usuário",
     "New User Store": "Nova Associação Usuário Loja",
     "Delete": "Excluir",
@@ -265,5 +265,9 @@
     "Submit": "Confirmar",
     "Update": "Atualizar",
     "Search": "Buscar",
-    "Record": "Registro"
+    "Record": "Registro",
+    "User Store": "Associação Usuário Loja",
+    "Store Code": "Código da Loja",
+    "Store Name": "Nome da Loja",
+    "User Name": "Nome do Usuário"
 }

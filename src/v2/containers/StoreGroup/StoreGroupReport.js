@@ -4,7 +4,7 @@ import { get_StoreGroups, get_StoreGroup, post_StoreGroup, put_StoreGroup } from
 
 const title = 'Store Groups';
 const modelName = 'StoreGroup';
-const modelTitle = 'Store Groups';
+const modelTitle = 'Store Group';
 const rowId = 'store_group_code';
 
 const searchSchema = {
@@ -52,7 +52,7 @@ const columns = [
 ]
 
 
-const UsersReport = () => {
+const StoreGroupReport = () => {
     return (
         <ReportPage title={title} modelName={modelName} modelTitle={modelTitle}
             columns={columns} getDataFnc={get_StoreGroups} searchSchema={searchSchema}
@@ -63,4 +63,4 @@ const UsersReport = () => {
     );
 }
  
-export default UsersReport;
+export default StoreGroupReport;

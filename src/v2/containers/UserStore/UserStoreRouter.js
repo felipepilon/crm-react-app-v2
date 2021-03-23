@@ -1,15 +1,15 @@
 import React from 'react';
 import { Switch, useRouteMatch, Route } from 'react-router-dom';
 import NotFound from '../NotFound';
-import UsersReport from './UsersReport';
+import UserStoreReport from './UserStoreReport';
 
-const CustomersRouter = () => {
+const UserStoreRouter = () => {
     const { path } = useRouteMatch();
 
     return (
         <Switch>
             <Route path={`${path}`}>
-                <UsersReport/>
+                <UserStoreReport/>
             </Route>
             <Route path={path}>
                 <NotFound/>
@@ -18,4 +18,4 @@ const CustomersRouter = () => {
     );
 }
  
-export default CustomersRouter;
+export default UserStoreRouter;

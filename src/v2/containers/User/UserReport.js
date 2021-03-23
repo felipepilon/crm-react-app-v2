@@ -73,7 +73,7 @@ const addValues = {
     force_password_change: true
 }
 
-const UsersReport = () => {
+const UserReport = () => {
     const loc = useLocation();
     
     const columns = [
@@ -97,4 +97,4 @@ const UsersReport = () => {
     );
 }
  
-export default UsersReport;
+export default UserReport;

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Customers from '../Customers';
-import Users from '../Users'
+import User from '../User'
 import WorkspaceHome from '../WorkspaceHome';
 import Reserves from '../Reserves';
-import StoreGroups from '../StoreGroups';
+import StoreGroup from '../StoreGroup';
 
 const AppRouter = () => {
     const match = useRouteMatch();
@@ -19,13 +19,13 @@ const AppRouter = () => {
                 <Customers/>
             </Route>
             <Route path={`${path}/users`}>
-                <Users/>
+                <User/>
             </Route>
             <Route path={`${path}/reserves`}>
                 <Reserves/>
             </Route>
             <Route path={`${path}/storeGroups`}>
-                <StoreGroups/>
+                <StoreGroup/>
             </Route>
             <Route path={`${path}*`}>
                 <div>Not Found Workspace</div>

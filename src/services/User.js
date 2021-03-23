@@ -26,6 +26,20 @@ export const put_User = ({store_group_code, user_id, params}) => {
     .catch(handleError);
 }
 
+export const get_User_Stores = ({store_group_code, user_id, params}) => {
+    return api.get(`/v2/${store_group_code}/users/${user_id}/stores`, {params})
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export const post_User_Store = ({store_group_code, user_id, params}) => {
+    return api.post(`/v2/${store_group_code}/users/${user_id}/stores`, params)
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+
+// Not reviwed
 export const get_ConnUser = ({user_id}) => {
     return api.get(`/users/${user_id}/connUser`)
     .then(handleResponse)
