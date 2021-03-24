@@ -6,9 +6,3 @@ export const post_Reserve = ({store_group_code, params}) => {
     .then(handleResponse)
     .catch(handleError);
 }
-
-export const get_ReserveDetails = (params) => {
-    return api.get('/reserves/details', {params})
-    .then(handleResponse)
-    .catch(handleError);
-}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, useTheme } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import CustomerSearchToContact from '../../components/CustomerSearchToContact';
+import CustomerSearchToContact from '../CustomerSearchToContact';
 import MenuButton from '../MenuDrawer/MenuButton';
 import LoginMenu from '../../../containers/workspace/LoginMenu';
 

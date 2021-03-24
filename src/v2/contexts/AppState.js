@@ -10,10 +10,10 @@ const AppStateContextProvider = ({children}) => {
     const [ error, setError ] = useState(null);
     const [ pageTitle, setPageTitle] = useState('CRM');
 
-    const addStatus = (sts) => setStatusStack((prev) => [...prev, sts]);
+    const addStatus = (sts) => setStatusStack((prev) => !prev.includes(sts) ? [...prev, sts] : prev);
 
-    const removeStatus = (sts) => setStatusStack((prev) => prev.filter((elm) => elm !== sts))
-    
+    const removeStatus = (sts) => setStatusStack((prev) => prev.filter((elm) => elm !== sts));
+
     return (
         <AppStateContext.Provider value={{
             statusStack,

@@ -6,6 +6,7 @@ import CustomerDataPaper from '../../../containers/customer-view/CustomerDataPap
 import { get_Customer } from '../../../services/Customer';
 import { AppStateContext } from '../../contexts/AppState';
 import NotFound from '../NotFound';
+import ContactTopics from '../../components/ContactTopics';
 
 const loadingStatus = 'Loading customer';
 
@@ -57,12 +58,16 @@ const CustomerContact = () => {
                     <CustomerDataPaper customer={customer} handleLoadCustomer={handleLoadCustomer}/>
                 </Box>
                 <Box flex='1' padding={1} >
-                    <ContactCenter
-                        store_group_code={store_group_code}
-                        customer={customer}
+                    <ContactCenter store_group_code={store_group_code} customer={customer}
                         setContactsLastUpdate={setContactsLastUpdate}
                     />
                 </Box>
+            </Box>
+            <Box flex='1' padding={1}>
+                <ContactTopics store_group_code={store_group_code} customer={customer} 
+                    reservesLastUpdate={reservesLastUpdate} setReservesLastUpdated={setReservesLastUpdated} 
+                    contactsLastUpdate={contactsLastUpdate}
+                />
             </Box>
         </Container>
     );

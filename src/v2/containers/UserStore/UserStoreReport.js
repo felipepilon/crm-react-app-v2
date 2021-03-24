@@ -5,7 +5,6 @@ import { get_User_Stores } from '../../../services/User';
 const title = 'User Stores';
 const modelName = 'UserStore';
 const modelTitle = 'User Store';
-const rowId = 'user_store_id';
 
 const searchSchema = {
     fieldGroups: [
@@ -19,30 +18,6 @@ const searchSchema = {
     ]
 }
 
-const addSchema = {
-    fieldGroups: [
-        {
-            key: 'main',
-            fields: [
-                { key: 'email', title: 'Email', required: true },
-                { key: 'store_code', title: 'Store', required: true }
-            ]
-        }
-    ]
-}
-
-const editSchema = {
-    fieldGroups: [
-        {
-            key: 'main',
-            fields: [
-                { key: 'email', title: 'Email', required: true },
-                { key: 'store_code', title: 'Store', required: true }
-            ]
-        }
-    ]
-}
- 
 const columns = [
     { key: 'email', title: 'Email' },
     { key: 'user_name', title: 'User Name' },

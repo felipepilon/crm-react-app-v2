@@ -19,8 +19,8 @@ export const post_Interactions = ({store_group_code, contact_id, params}) => {
     .catch(handleError);
 }
 
-export const get_Contacts = (params) => {
-    return api.get('/contacts', {params})
+export const get_Contacts = ({store_group_code, params}) => {
+    return api.get(`/v2/${store_group_code}/contacts`, {params})
     .then(handleResponse)
     .catch(handleError);
 }

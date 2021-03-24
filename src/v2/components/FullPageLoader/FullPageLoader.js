@@ -20,10 +20,11 @@ const FullPageLoader = () => {
             <CircularProgress/>
             {
                 open &&
-                statusStack.map((sts) => 
+                statusStack.map((sts) =>
+                    sts.substr(0, 1) !== '_' &&
                     <Typography key={sts} variant='body1'>
                         <FormattedMessage id={sts}/>
-                    </Typography>    
+                    </Typography> 
                 )
             }
         </Backdrop>

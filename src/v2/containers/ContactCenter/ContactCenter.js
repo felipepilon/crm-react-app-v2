@@ -20,7 +20,6 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
     const theme = useTheme();
     
     const [ contact, setContact ] = useState({
-        store_group_code,
         status: 'New',
         customer_code: customer.customer_code,
         reasons: []
@@ -78,7 +77,6 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
         })
         .then(() => {
             setContact({
-                store_group_code,
                 status: 'New',
                 customer_code: contact.customer_code,
                 store_code: contact.store_code,

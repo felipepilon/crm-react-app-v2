@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { AppStateContext } from '../../../contexts/AppState';
 import WorkspaceContextProvider from '../../contexts/Workspace';
-import WorkBar from '../WorkBar/WorkBar';
 import WorkspaceWrapper from './WorkspaceWrapper';
 import WorkspaceRouter from './WorkspaceRouter';
 import PageWrapper from '../../components/Page/PageWrapper';
 import { useRouteMatch } from 'react-router-dom';
-import MenuDrawer from '../MenuDrawer';
+import MenuDrawer from '../../components/MenuDrawer';
+import WorkBar from '../../components/WorkBar';
 
 const Workspace = () => {
     const { store_group_code } = useRouteMatch().params;

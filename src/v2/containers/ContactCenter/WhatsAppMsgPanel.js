@@ -10,10 +10,11 @@ import { formatISO } from 'date-fns';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import MsgPresetSelectionDialog from './MsgPresetSelectionDialog';
 import { get_ContactMsgPresets } from '../../../services/ContactMsgPreset';
+import { post_Contact, post_Interactions } from '../../../services/Contact';
 
 const WhatsAppMsgPanel = ({
-    store_group_code, contact, contactVia, customer, setContact,
-    handleEndContact, handlePostContact, handlePostInteractions
+    store_group_code, contact, contactVia, customer,
+    setContact, handleEndContact
 }) => {
     const theme = useTheme();
     const intl = useIntl();
@@ -42,26 +43,30 @@ const WhatsAppMsgPanel = ({
 
     useEffect(() => {
         setLoading(true);
-
-        setTimeout(() => {
-            get_ContactMsgPresets({store_group_code, params: {
-                reasons: contact.reasons.map((rsn) => rsn.contact_reason_id),
-                contact_via: contactVia, 
-                active: true,
-                is_default: true
-            }})
-            .then((res) => {
-                setPanelState({ 
-                    ...panelState,
-                    ...{
-                        status: 'Ready To Send',
-                        out_msg: res.length ? res[0].text : null,
-                    }, 
-                });
+        let mounted = true;
         
-                setLoading(false);
-            })
-        }, 500);
+        get_ContactMsgPresets({store_group_code, params: {
+            reasons: contact.reasons.map((rsn) => rsn.contact_reason_id),
+            contact_via: contactVia, 
+            active: true,
+            is_default: true
+        }})
+        .then((res) => {
+            if (!mounted)
+                return;
+
+            setPanelState({ 
+                ...panelState,
+                ...{
+                    status: 'Ready To Send',
+                    out_msg: res.length ? res[0].text : null,
+                }, 
+            });
+    
+            setLoading(false);
+        });
+
+        return () => mounted = false;
     // eslint-disable-next-line
     }, [contact.reasons, contactVia]);
     
@@ -117,16 +122,14 @@ const WhatsAppMsgPanel = ({
         if (!contact.contact_id) {
             let newContact = { 
                 ...contact,
-                ...{ 
-                    status: 'Started',
-                    contact_start_date: currentDateISO,
-                    contact_date: currentDateISO,
-                }
+                status: 'Started',
+                contact_start_date: currentDateISO,
+                contact_date: currentDateISO
             };
     
             setContact(newContact);
 
-            const interactions = [{
+            newContact.interactions = [{
                 contact_via: contactVia,
                 interaction_type: 'Call Started',
                 interaction_text: 'Call started at: {t1}',
@@ -135,7 +138,7 @@ const WhatsAppMsgPanel = ({
             }];
     
             contact.reasons.forEach((rsn) => {
-                interactions.push({
+                newContact.interactions.push({
                     contact_via: contactVia,
                     interaction_type: 'Contact Reason',
                     interaction_text: rsn.reason_type === 'Another' ? 'Reason: {t1}, {t2}' : 'Reason: {t1}',
@@ -145,7 +148,7 @@ const WhatsAppMsgPanel = ({
                 });
             });
 
-            interactions.push({
+            newContact.interactions.push({
                 contact_id: contact.contact_id,
                 contact_via: contactVia,
                 interaction_type: 'Message Sent',
@@ -154,32 +157,23 @@ const WhatsAppMsgPanel = ({
                 t1: panelState.out_msg,
             });
 
-            setTimeout(() => {
-                handlePostContact({
+            post_Contact({store_group_code, params: newContact})
+            .then((result) => {
+                newContact = { 
                     ...newContact,
-                    ...{
-                        interactions,
-                    }
-                })
-                .then((result) => {
-                    newContact = { 
-                        ...newContact,
-                        ...{ 
-                            contact_id: result.contact_id,
-                            interactions: result.interactions,
-                        }
-                    };
-    
-                    setContact(newContact);
+                    contact_id: result.contact_id,
+                    interactions: result.interactions
+                };
 
-                    handleStatusChange('Waiting Feedback')
+                setContact(newContact);
 
-                    if (panelState.open_whatsapp)
-                        window.open(href, '_blank');
+                handleStatusChange('Waiting Feedback')
 
-                    setLoading(false);
-                })
-            }, 1000);
+                if (panelState.open_whatsapp)
+                    window.open(href, '_blank');
+
+                setLoading(false);
+            });
         } else {
             const newInter = {
                 contact_id: contact.contact_id,
@@ -190,27 +184,26 @@ const WhatsAppMsgPanel = ({
                 t1: panelState.out_msg,
             };
 
-            setTimeout(() => {
-                handlePostInteractions([newInter])
-                .then((result) => {
-                    setContact({
-                        ...contact,
-                        ...{
-                            interactions: [
-                                ...contact.interactions,
-                                ...result,
-                            ]
-                        }
-                    });    
-    
-                    handleStatusChange('Waiting Feedback')
+            post_Interactions({store_group_code, contact_id: contact.contact_id,
+                params: [newInter]})
+            .then((result) => {
+                setContact({
+                    ...contact,
+                    ...{
+                        interactions: [
+                            ...contact.interactions,
+                            ...result,
+                        ]
+                    }
+                });    
 
-                    if (panelState.open_whatsapp)
-                        window.open(href, '_blank');
+                handleStatusChange('Waiting Feedback')
 
-                    setLoading(false);
-                })
-            }, 1000);
+                if (panelState.open_whatsapp)
+                    window.open(href, '_blank');
+
+                setLoading(false);
+            });
         }
     }
 
@@ -268,9 +261,9 @@ const WhatsAppMsgPanel = ({
             });
         }
 
-        setTimeout(() => {
-            handlePostInteractions(newInters).then(() => handleEndContact());
-        }, 1000);
+        post_Interactions({store_group_code, contact_id: contact.contact_id,
+            params: newInters})
+        .then(() => handleEndContact());
     }
 
 

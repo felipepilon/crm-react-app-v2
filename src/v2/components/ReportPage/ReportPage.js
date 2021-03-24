@@ -1,11 +1,11 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import ReportTable from '../ReportTable/ReportTable';
-import SearchDialog from '../search-dialog/SearchDialog';
+import EnhancedTable from '../EnhancedTable/EnhancedTable';
+import SearchDialog from '../SearchDialog';
 import PageHeader from './PageHeader';
 import SearchIconButton from './SearchButton';
 import AddButton from './AddButton';
-import EditDialog from '../EditDialog/EditDialog';
+import EditDialog from '../EditDialog';
 import { AppStateContext } from '../../contexts/AppState';
 import { useIntl } from 'react-intl';
 import { Can } from '../../../contexts/Can';
@@ -26,6 +26,7 @@ const ReportPage = ({
     const [updateOpen, setUpdateOpen] = useState(false);
     const [lastUpdate, setLastUpdate] = useState(new Date());
     const [selected, setSelected] = useState({});
+    const [data, setData] = useState([]);
 
     const _modelTitle = intl.formatMessage({id: modelTitle || 'Record'});
     
@@ -68,8 +69,8 @@ const ReportPage = ({
                 }
                 <SearchIconButton handleClick={() => setFilterOpen(true)}/>
             </PageHeader>
-            <ReportTable 
-                columns={columns} 
+            <EnhancedTable columns={columns} 
+                data={data} setData={setData}
                 getDataFnc={getDataFnc} 
                 filters={filters}
                 lastUpdate={lastUpdate}

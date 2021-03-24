@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EnhancedTable from '../../components/table/EnhancedTable'
 import { FormattedMessage } from 'react-intl';
 import { Box } from '@material-ui/core';
-import { get_ReserveDetails } from '../../services/Reserve';
+//import { get_ReserveDetails } from '../../services/Reserve';
 
 const ReservesTable = ({customer_id, lastUpdate}) => {
     const [ expanded, setExpanded ] = useState(false);
@@ -32,11 +32,11 @@ const ReservesTable = ({customer_id, lastUpdate}) => {
     useEffect(() => {
         if (expanded && loading)
         {
-            get_ReserveDetails({ customer_id })
+            /*get_ReserveDetails({ customer_id })
             .then((result) => {
                 setData(result);
                 setLoading(false);
-            });
+            });*/
         }
     // eslint-disable-next-line
     }, [expanded, loading]);

@@ -19,15 +19,15 @@ const MsgPresetSelectionDialog = ({store_group_code, reasons, contact_via, open,
     const [ data, setData ] = useState([]);
 
     useEffect(() => {
-        setTimeout(() => {
+        if (open) {
             get_ContactMsgPresets({store_group_code, params: {reasons, contact_via, active: true}})
             .then((res) => {
                 setData(res);
                 setLoading(false);
-            })
-        }, 500);
+            });
+        };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [reasons, contact_via]);
+    }, [reasons, contact_via, open]);
 
     const handleRowClick = (row) => {
         handleTextSelect(row.text);

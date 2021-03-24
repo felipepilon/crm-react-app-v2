@@ -234,7 +234,7 @@
     "30 Days no Buying - {sale_date}": "30 Dias Sem Comprar - {sale_date}",
     "Loading previous contacts...": "Carregando contatos anteriores...",
     "This customer was never contacted": "Este cliente nunca foi contatado",
-    "<Last contact message>": "Este cliente foi contatado pela última vez em {contact_date} por {salesman_name} na loja {store_name} para falar sobre {reasons}",
+    "constant.last_contact_msg": "Este cliente foi contatado pela última vez em {contact_date} por {salesman_name} na loja {store_name} para falar sobre {reasons}",
     "User inactive. Contact system administrator": "Usuário inativo. Contate o adminsitrador do sistema",
     "You need to reset your password": "Você precisa redefinir sua senha",
     "Enter your current password": "Informe sua senha atual",

@@ -3,7 +3,7 @@ import AppRouter from './AppRouter';
 import { Box } from '@material-ui/core';
 import FullPageLoader from './components/FullPageLoader';
 import FullPageLoaderV2 from './v2/components/FullPageLoader';
-import AppStateDialog from './v2/containers/AppStateDialog';
+import AppStateDialog from './v2/components/AppStateDialog';
 import { AppStateContext } from './contexts/AppState';
 
 function App() {
