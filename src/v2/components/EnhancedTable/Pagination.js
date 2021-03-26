@@ -12,7 +12,7 @@ const Pagination = ({hidden, count, page, rowsPerPage, setPage, setRowsPerPage})
         {
             !hidden &&
             <TablePagination
-                rowsPerPageOptions={[10, 25, 50, 100]}
+                rowsPerPageOptions={[5, 10, 25, 50, 100, 250, 500]}
                 component='div'
                 count={count}
                 rowsPerPage={rowsPerPage}

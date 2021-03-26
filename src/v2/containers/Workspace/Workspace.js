@@ -7,6 +7,7 @@ import PageWrapper from '../../components/Page/PageWrapper';
 import { useRouteMatch } from 'react-router-dom';
 import MenuDrawer from '../../components/MenuDrawer';
 import WorkBar from '../../components/WorkBar';
+import SuccessSnack from '../../components/SuccessSnack';
 
 const Workspace = () => {
     const { store_group_code } = useRouteMatch().params;
@@ -25,6 +26,7 @@ const Workspace = () => {
                 <PageWrapper>
                     <WorkspaceRouter/>
                 </PageWrapper>
+                <SuccessSnack/>
             </WorkspaceWrapper>
         </WorkspaceContextProvider>
     );

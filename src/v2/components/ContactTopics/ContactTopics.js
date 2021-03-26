@@ -3,7 +3,7 @@ import React from 'react';
 import BirthdayMessage from './BirthdayMessage';
 import LastContact from './LastContact';
 import { FormattedMessage } from 'react-intl';
-import OpenReserves from './OpenReserves';
+import OpenReservesTable from '../OpenReservesTable';
 
 const ContactTopics = ({
     store_group_code, customer, 
@@ -13,13 +13,16 @@ const ContactTopics = ({
     const theme = useTheme();
 
     return (
-        <Paper style={{display: 'flex', width: '100%', padding: theme.spacing(2), flexDirection: 'column', boxSizing: 'border-box', position: 'relative'}}>
+        <Paper style={{display: 'flex', flexDirection: 'column', flex: '1', 
+            margin: theme.spacing(1), padding: theme.spacing(1), 
+            boxSizing: 'border-box', position: 'relative'
+        }}>
             <Typography variant='subtitle1'><FormattedMessage id='Topics'/></Typography>
             <BirthdayMessage customer={customer}/>
             <LastContact store_group_code={store_group_code} customer={customer}
                 contactsLastUpdate={contactsLastUpdate}
             />
-            <OpenReserves store_group_code={store_group_code} customer={customer} 
+            <OpenReservesTable store_group_code={store_group_code} customer={customer} 
                 lastUpdate={reservesLastUpdate} setLastUpdate={setReservesLastUpdated}
             />
         </Paper>

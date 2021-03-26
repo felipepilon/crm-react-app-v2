@@ -9,8 +9,10 @@ const TableBody = ({data, rowsPerPage, page, columns}) => {
         <TableBodyMUI>
             {
                 _data.map((row, idx) => {
+                    const _row = { ...row, _row_id: idx + page, _row_no: idx + page + 1 };
+                    
                     return (
-                        <TableRow key={idx} row={row} columns={columns}/>
+                        <TableRow key={idx} row={_row} columns={columns}/>
                     );
                 })
             }

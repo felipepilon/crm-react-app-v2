@@ -219,7 +219,7 @@
     "Birtday information not available": "Informação de aniversário não disponível",
     "Topics": "Tópicos",
     "Loading open reserves...": "Carregando reservas em aberto...",
-    "Open reserves": "Reservas em aberto",
+    "Open reserves:": "Reservas em aberto:",
     "No open reserves": "Não possui reservas em aberto",
     "Actions": "Ações",
     "Cancel reserve": "Cancelar reserva",
@@ -235,6 +235,7 @@
     "Loading previous contacts...": "Carregando contatos anteriores...",
     "This customer was never contacted": "Este cliente nunca foi contatado",
     "constant.last_contact_msg": "Este cliente foi contatado pela última vez em {contact_date} por {salesman_name} na loja {store_name} para falar sobre {reasons}",
+    "constant.table_row_no": "#",
     "User inactive. Contact system administrator": "Usuário inativo. Contate o adminsitrador do sistema",
     "You need to reset your password": "Você precisa redefinir sua senha",
     "Enter your current password": "Informe sua senha atual",
@@ -269,5 +270,9 @@
     "User Store": "Associação Usuário Loja",
     "Store Code": "Código da Loja",
     "Store Name": "Nome da Loja",
-    "User Name": "Nome do Usuário"
+    "User Name": "Nome do Usuário",
+    "Loading open reserves": "Carregando reservas em aberto",
+    "Reserve closed successfully": "Reserva fechada com sucesso",
+    "Reserve canceled successfully": "Reserva cancelada com sucesso",
+    "Loading reserves": "Carregando reservas"
 }

@@ -7,8 +7,8 @@ export const get_ReserveProducts = ({store_group_code, params}) => {
     .catch(handleError);
 }
 
-export const post_ReserveProduct = (params) => {
-    return api.post('/reserveProducts', params)
+export const put_ReserveProduct = ({store_group_code, reserve_product_id, params}) => {
+    return api.put(`/v2/${store_group_code}/reserveProducts/${reserve_product_id}`, params)
     .then(handleResponse)
     .catch(handleError);
 }

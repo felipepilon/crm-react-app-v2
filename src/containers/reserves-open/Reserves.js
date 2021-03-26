@@ -1,8 +1,7 @@
 import { Box, Typography, TableCell, Tooltip, IconButton } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-//import { get_ReserveDetails } from '../../services/Reserve';
-import { post_ReserveProduct } from '../../services/ReserveProduct';
+import { get_ReserveProducts, put_ReserveProduct } from '../../services/ReserveProduct';
 import TableWrapper from '../../components/table2/TableWrapper';
 import TableBodyWrapper from '../../components/table2/TableBodyWrapper';
 import TableHeaderWrapper from '../../components/table2/TableHeaderWrapper';
@@ -31,18 +30,18 @@ const Reserves = ({customer_id, loading, setLoading, setReservesLastUpdated, res
         'No open reserves';
 
     const loadData = () => {
-        /*get_ReserveDetails({customer_id, status: "New"})
+        get_ReserveProducts({customer_id, status: "New"})
         .then((res) => {
             setData(res);
             setLoading(false);
-        });*/
+        });
     }
 
     const handleConfirmAction = (status, reserve) => {
         setLoading(true);
         setConfirmationDialog({});
 
-        post_ReserveProduct({
+        put_ReserveProduct({
             reserve_product_id: reserve.reserve_product_id,
             status
         })

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Paper, useTheme, Typography, Box } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import StoreSelect from '../../components/StoreSelect';
+import StoreSelect from '../StoreSelect';
 import { useLocation } from 'react-router-dom';
 import { AppStateContext } from '../../contexts/AppState';
 import { put_Contact } from '../../../services/Contact';
-import SalesmanSelect from '../../components/SalesmanSelect';
-import ContactReason from '../../components/ContactReasonSelect';
+import SalesmanSelect from '../SalesmanSelect';
+import ContactReason from '../ContactReasonSelect';
 import WhatsAppButton from './WhatsAppButton';
 import PhoneCallButton from './PhoneCallButton';
 import DisabledAbsoluteBox from '../../../components/DisabledAbsoluteBox';
@@ -126,18 +126,11 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
     const disabled = contact.status !== 'New';
 
     return (
-        <Paper style={{ height: '100%', padding: theme.spacing(1), boxSizing: 'border-box' }}>
-            <Box
-                display='flex'
-                width='100%'
-                height='100%'
-            >
-                <Box
-                    display='flex'
-                    flexDirection='column'
-                    width='50%'
-                    margin={1}
-                >
+        <Paper style={{ flex: '1', height: '100%',
+            padding: theme.spacing(1), margin: theme.spacing(1), boxSizing: 'border-box' 
+        }}>
+            <Box display='flex' width='100%' height='100%'>
+                <Box display='flex' flexDirection='column' width='50%' margin={1}>
                     <Typography variant='h6'><FormattedMessage id='Contact Customer'/></Typography>
                     <StoreSelect
                         store_group_code={store_group_code}
