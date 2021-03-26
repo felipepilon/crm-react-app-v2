@@ -18,7 +18,8 @@ const EnhancedTable = ({
     rowsPerPageDefault, pageDefault, hidePagination,
     hidePaginationSinglePage,
     noLoadData, noSaveFilter,
-    hideRowNo
+    hideRowNo,
+    colapsableColumns
 }) => {
     const { setError } = useContext(AppStateContext);
     const { addStatus, removeStatus } = useContext(AppStateContext)
@@ -32,9 +33,20 @@ const EnhancedTable = ({
     const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageDefault || 10);
     const [_rowsPerPageDefault] = useState(rowsPerPageDefault || 10);
     const [page, setPage] = useState(pageDefault || 0);
+    const [ colapsableData, setColapsableData ] = useState({});
     
     const _loadingStatus = loadingStatus || 'Loading';
     const _data = data || [];
+
+    const handleColapsable = ({row, open}) => {
+        console.log('handleColapsable', open, row)
+        setColapsableData((prev) => ({
+            ...prev,
+            [row._row_id]: {
+                open
+            }
+        }));
+    };
 
     useEffect(() => {
         if (noLoadData) {
@@ -71,7 +83,7 @@ const EnhancedTable = ({
     if (hideNoData && !_data.length)
         return null
 
-    const _columns = columns;
+    const _columns = [...columns]; 
 
     if (!hideRowNo) {
         _columns.unshift({ key: '_row_no', title: 'constant.table_row_no' });
@@ -79,6 +91,13 @@ const EnhancedTable = ({
 
     if (handleEdit && !_columns.find((row) => row.key === '_edit') && ability.can('edit', modelName)) {
         _columns.unshift({ key: '_edit', title: 'Edit', comp: 'icon', icon: EditIcon, click: handleEdit});
+    }
+
+    if (colapsableColumns) {
+        _columns.unshift({ 
+            key: '_colapsable', comp: 'colapsable', 
+            click: handleColapsable 
+        });
     }
 
     const _hidePagination = Boolean(hidePagination ||
@@ -89,8 +108,12 @@ const EnhancedTable = ({
         <Box display='flex' flexDirection='column' width='100%' position='relative' flex='1'>
             <Paper style={{display: 'flex', flexDirection: 'column', flex: '1'}}>
                 <TableWrapper dense={dense}>
-                    <TableHeader columns={_columns}/>
-                    <TableBody data={_data} rowsPerPage={rowsPerPage} page={page} columns={_columns}/>
+                    <TableHeader columns={_columns} colapsableColumns={colapsableColumns}/>
+                    <TableBody data={_data} columns={_columns}
+                        rowsPerPage={rowsPerPage} page={page}
+                        dense={dense} colapsableColumns={colapsableColumns}
+                        colapsableData={colapsableData}
+                    />
                 </TableWrapper>
                 <Pagination count={_data.length} 
                     page={page} setPage={setPage}

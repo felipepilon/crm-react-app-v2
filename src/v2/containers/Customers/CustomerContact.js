@@ -7,6 +7,7 @@ import CustomerReservesAccordion from '../../components/CustomerReservesAccordio
 import { get_Customer } from '../../../services/Customer';
 import { AppStateContext } from '../../contexts/AppState';
 import ContactTopics from '../../components/ContactTopics';
+import CustomerContactsAccordion from '../../components/CustomerContactsAccordion/CustomerContactsAccordion';
 
 
 const loadingStatus = 'Loading customer';
@@ -59,6 +60,7 @@ const CustomerContact = () => {
                 contactsLastUpdate={contactsLastUpdate}
             />
             <CustomerReservesAccordion customer={customer} lastUpdate={reservesLastUpdate}/>
+            <CustomerContactsAccordion customer={customer} lastUpdate={contactsLastUpdate}/>
         </Container>
     );
 }
