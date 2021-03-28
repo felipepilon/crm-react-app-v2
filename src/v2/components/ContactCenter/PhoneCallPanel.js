@@ -9,7 +9,7 @@ import OnGoingCallTimer from './OnGoingCallTimer';
 import ContactFeedback from './ContactFeedback';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { formatISO } from 'date-fns';
-import { post_Contact, post_Interactions } from '../../../services/Contact';
+import { post_Contact, post_Interactions, put_Contact } from '../../../services/Contact';
 
 const PhoneCallPanel = ({
     contactVia, contact, customer, setContact,
@@ -73,12 +73,9 @@ const PhoneCallPanel = ({
             });
         });
         
-        post_Contact({
-            store_group_code, contact_id,
-            params: {
-                ...newContact,
-                interactions
-            }
+        put_Contact({
+            store_group_code, contact_id, interactions,
+            ...newContact,        
         })
         .then((res) => {
             newContact = { 

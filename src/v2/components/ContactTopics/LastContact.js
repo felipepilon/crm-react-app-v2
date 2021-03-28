@@ -23,12 +23,14 @@ const LastContact = ({
     }, [customer, contactsLastUpdate])
 
     const loadData = () => {
-        get_Contacts({store_group_code, params: {
+        get_Contacts({
+            store_group_code,
+            
             customer_code: customer.customer_code,
             status: 'Completed',
             _limit: 1,
             _orderBy: ['contact_date DESC']
-        }})
+        })
         .then((res) => {
             const newContact = res && res.length ? res[0] : null
             setContact(newContact);

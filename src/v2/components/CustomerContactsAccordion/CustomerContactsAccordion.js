@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import EnhancedTable from '../EnhancedTable';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { FormattedMessage } from 'react-intl';
-import { get_Contacts } from '../../../services/Contact';
+import { get_ContactInteractions, get_Contacts } from '../../../services/Contact';
 
 const CustomerContactsAccordion = ({customer, lastUpdate}) => {
     const [data, setData] = useState([]);
@@ -26,11 +26,13 @@ const CustomerContactsAccordion = ({customer, lastUpdate}) => {
         { key: 'updated_by', title: 'Updated By' }
     ]);
 
-    const [ colapsableColumns ] = useState([
-        { name: 'interaction_text', title: 'Detalhes', wrap: true }
-    ])
+    const [ colapsable ] = useState({
+        getDataFnc: get_ContactInteractions,
+        getDataParams: ['contact_id'],
+        columns: [{ key: 'interaction_text', title: 'Details', comp: 'intl', wrap: true }],
+        hideRowNo: true
+    });
     
-
     useEffect(() => {
         if (expanded && !lastLoadedAt)
             setLastLoadedAt(new Date());
@@ -63,7 +65,7 @@ const CustomerContactsAccordion = ({customer, lastUpdate}) => {
                         getDataFnc={get_Contacts}
                         filters={filters} noSaveFilter
                         lastUpdate={lastLoadedAt}
-                        colapsableColumns={colapsableColumns}
+                        colapsable={colapsable}
                     />
                 </AccordionDetails>
             </Accordion>

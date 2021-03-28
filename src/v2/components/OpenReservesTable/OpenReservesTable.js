@@ -97,8 +97,8 @@ const OpenReservesTable = ({customer, lastUpdate, setLastUpdate}) => {
                 <Typography variant='body1'><FormattedMessage id={message}/></Typography>
             }
             <EnhancedTable columns={columns} 
-                defaultDense hideDense hideNoData
-                rowsPerPageDefault={5} hidePaginationSinglePage
+                dense hideDense hideNoData
+                rowsPerPage={5} hidePaginationSinglePage
                 loadingStatus='Loading open reserves'
                 data={data} setData={setData} hideRowNo
                 getDataFnc={get_ReserveProducts}

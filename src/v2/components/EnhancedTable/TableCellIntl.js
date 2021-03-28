@@ -12,7 +12,7 @@ const TableCellIntl = ({row, column}) => {
 
     return (  
         <Typography variant='inherit' noWrap>
-            {(value && <FormattedMessage id={value}/>) || ''}
+            {(value && <FormattedMessage id={value} values={row}/>) || ''}
         </Typography>
     );
 }

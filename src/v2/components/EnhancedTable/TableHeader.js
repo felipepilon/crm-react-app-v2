@@ -2,7 +2,7 @@ import { TableHead, TableRow } from '@material-ui/core';
 import React from 'react';
 import ColumnHeader from './ColumnHeader';
 
-const TableHeader = ({columns, edit}) => {
+const TableHeader = ({columns}) => {
     return (
         <TableHead>
             <TableRow>

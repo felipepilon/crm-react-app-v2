@@ -157,7 +157,7 @@ const WhatsAppMsgPanel = ({
                 t1: panelState.out_msg,
             });
 
-            post_Contact({store_group_code, params: newContact})
+            post_Contact({store_group_code, ...newContact})
             .then((result) => {
                 newContact = { 
                     ...newContact,

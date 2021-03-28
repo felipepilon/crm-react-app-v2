@@ -11,60 +11,76 @@ import EditIcon from '@material-ui/icons/Edit';
 import { AbilityContext } from '../../../contexts/Can';
 
 const EnhancedTable = ({
-    columns, data, setData, filters, 
+    columns, data, setData, filters, loading,
     getDataFnc, lastUpdate, handleEdit, 
-    loadingStatus, modelName,
-    defaultDense, hideDense, hideNoData,
-    rowsPerPageDefault, pageDefault, hidePagination,
+    modelName,
+    dense, hideDense, hideNoData,
+    rowsPerPage, hidePagination,
     hidePaginationSinglePage,
     noLoadData, noSaveFilter,
     hideRowNo,
-    colapsableColumns
+    colapsable,
 }) => {
     const { setError } = useContext(AppStateContext);
-    const { addStatus, removeStatus } = useContext(AppStateContext)
     const ability = useContext(AbilityContext);
 
     const match = useRouteMatch();
     const hist = useHistory();
     const loc = useLocation();
 
-    const [dense, setDense] = useState(Boolean(defaultDense));
-    const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageDefault || 10);
-    const [_rowsPerPageDefault] = useState(rowsPerPageDefault || 10);
-    const [page, setPage] = useState(pageDefault || 0);
-    const [ colapsableData, setColapsableData ] = useState({});
+    const [ _dense, _setDense ] = useState(Boolean(dense));
+    const [_rowsPerPage, _setRowsPerPage] = useState(rowsPerPage || 10);
+    const [_rowsPerPageDefault] = useState(rowsPerPage || 10);
+    const [page, setPage] = useState(0);
+    const [ _colapsable, _setColapsable ] = useState({
+        rows: {},
+        ...colapsable
+    });
+    const [ _loading, _setLoading ] = useState(true);
     
-    const _loadingStatus = loadingStatus || 'Loading';
     const _data = data || [];
 
     const handleColapsable = ({row, open}) => {
-        console.log('handleColapsable', open, row)
-        setColapsableData((prev) => ({
+        _setColapsable((prev) => ({
             ...prev,
-            [row._row_id]: {
-                open
+            rows: {
+                ...prev.rows,
+                [row._row_id]: {
+                    ..._colapsable.rows[row._row_id],
+                    open
+                }
             }
         }));
     };
 
+    useEffect(() => { 
+        if (typeof dense === 'boolean')
+            _setDense(dense);
+    }, [dense]);
+    useEffect(() => { 
+        if (typeof rowsPerPage === 'number')
+            _setRowsPerPage(rowsPerPage) ;
+    }, [rowsPerPage]);
+
     useEffect(() => {
+        console.log('useEffect load data')
+
         if (noLoadData) {
-            if (data.length)
+            if (_data.length)
                 setData([]);
         } 
         else if (filters && getDataFnc && setData) {
-            addStatus(_loadingStatus);
+            _setLoading(true);
 
             setTimeout(() => {
-                getDataFnc({...match.params, params: filters})
+                getDataFnc({...match.params, ...filters})
                 .then((res) => {
                     setData(res);
-                    removeStatus(_loadingStatus);
+                    _setLoading(false);
                 })
                 .catch((err) => {
                     setData([]);
-                    removeStatus(_loadingStatus);
+                    _setLoading(false);
                         
                     setError({
                         title: 'Search Users',
@@ -79,7 +95,7 @@ const EnhancedTable = ({
         }
     // eslint-disable-next-line
     }, [filters, lastUpdate, noLoadData])
-        
+
     if (hideNoData && !_data.length)
         return null
 
@@ -93,7 +109,7 @@ const EnhancedTable = ({
         _columns.unshift({ key: '_edit', title: 'Edit', comp: 'icon', icon: EditIcon, click: handleEdit});
     }
 
-    if (colapsableColumns) {
+    if (colapsable && colapsable.columns) {
         _columns.unshift({ 
             key: '_colapsable', comp: 'colapsable', 
             click: handleColapsable 
@@ -107,23 +123,23 @@ const EnhancedTable = ({
     return (
         <Box display='flex' flexDirection='column' width='100%' position='relative' flex='1'>
             <Paper style={{display: 'flex', flexDirection: 'column', flex: '1'}}>
-                <TableWrapper dense={dense}>
-                    <TableHeader columns={_columns} colapsableColumns={colapsableColumns}/>
+                <TableWrapper dense={_dense}>
+                    <TableHeader columns={_columns}/>
                     <TableBody data={_data} columns={_columns}
-                        rowsPerPage={rowsPerPage} page={page}
-                        dense={dense} colapsableColumns={colapsableColumns}
-                        colapsableData={colapsableData}
+                        rowsPerPage={_rowsPerPage} page={page}
+                        dense={_dense} loading={_loading}
+                        colapsable={_colapsable}
                     />
                 </TableWrapper>
                 <Pagination count={_data.length} 
                     page={page} setPage={setPage}
                     hidden={_hidePagination}
-                    rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage}
+                    rowsPerPage={_rowsPerPage} setRowsPerPage={_setRowsPerPage}
                 />
             </Paper>
             {
                 !hideDense &&
-                <DenseSwitch dense={dense} setDense={setDense}/>
+                <DenseSwitch dense={_dense} _setDense={_setDense}/>
             }
         </Box>
     );
