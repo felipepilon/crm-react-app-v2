@@ -5,28 +5,25 @@ import { Box, Paper } from '@material-ui/core';
 import DenseSwitch from './DenseSwitch';
 import Pagination from './Pagination';
 import TableBody from './TableBody';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { AppStateContext } from '../../contexts/AppState';
 import EditIcon from '@material-ui/icons/Edit';
 import { AbilityContext } from '../../../contexts/Can';
 
 const EnhancedTable = ({
-    columns, data, setData, filters, loading,
+    columns, data, setData, filters,
     getDataFnc, lastUpdate, handleEdit, 
     modelName,
     dense, hideDense, hideNoData,
     rowsPerPage, hidePagination,
     hidePaginationSinglePage,
-    noLoadData, noSaveFilter,
-    hideRowNo,
-    colapsable,
+    noLoadData, hideRowNo,
+    colapsable
 }) => {
     const { setError } = useContext(AppStateContext);
     const ability = useContext(AbilityContext);
 
     const match = useRouteMatch();
-    const hist = useHistory();
-    const loc = useLocation();
 
     const [ _dense, _setDense ] = useState(Boolean(dense));
     const [_rowsPerPage, _setRowsPerPage] = useState(rowsPerPage || 10);
@@ -36,7 +33,7 @@ const EnhancedTable = ({
         rows: {},
         ...colapsable
     });
-    const [ _loading, _setLoading ] = useState(true);
+    const [ _loading, _setLoading ] = useState(false);
     
     const _data = data || [];
 
@@ -63,7 +60,8 @@ const EnhancedTable = ({
     }, [rowsPerPage]);
 
     useEffect(() => {
-        console.log('useEffect load data')
+        console.log('params', match.params);
+        console.log('filters', filters);
 
         if (noLoadData) {
             if (_data.length)
@@ -89,9 +87,6 @@ const EnhancedTable = ({
                     });
                 });
             }, 1000);
-            
-            if (!noSaveFilter)
-                hist.replace(loc.pathname, {...loc.state, filters});
         }
     // eslint-disable-next-line
     }, [filters, lastUpdate, noLoadData])
@@ -139,7 +134,7 @@ const EnhancedTable = ({
             </Paper>
             {
                 !hideDense &&
-                <DenseSwitch dense={_dense} _setDense={_setDense}/>
+                <DenseSwitch dense={_dense} setDense={_setDense}/>
             }
         </Box>
     );

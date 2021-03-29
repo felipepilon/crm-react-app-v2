@@ -5,9 +5,7 @@ import { FormattedMessage } from 'react-intl';
 const LoadingAbsoluteBox = ({loading}) => {
     if (!loading)   
         return null;
-
-    console.log('loading =>', loading)
-
+    
     return (
         <Box display='flex' position='absolute'
             height='100%' width='100%'

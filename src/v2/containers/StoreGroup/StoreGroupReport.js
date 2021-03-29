@@ -51,6 +51,9 @@ const columns = [
     { key: 'updated_by', title: 'Updated By' }
 ]
 
+const filters = {
+    orderBy: ['store_group_code']
+}
 
 const StoreGroupReport = () => {
     return (
@@ -58,7 +61,7 @@ const StoreGroupReport = () => {
             columns={columns} getDataFnc={get_StoreGroups} searchSchema={searchSchema}
             addSchema={addSchema} addFnc={post_StoreGroup}
             editSchema={editSchema} editFnc={put_StoreGroup}
-            getFnc={get_StoreGroup} rowId={rowId}
+            getFnc={get_StoreGroup} rowId={rowId} filters={filters}
         />
     );
 }

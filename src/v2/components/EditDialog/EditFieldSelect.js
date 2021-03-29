@@ -1,16 +1,21 @@
-import { MenuItem, Select } from '@material-ui/core';
+import { CircularProgress, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { useLocation, useRouteMatch } from 'react-router';
 
 const EditFieldSelect = ({field, values, handleFieldChange}) => {
     const value = values[field.key] || '';
 
     const intl = useIntl();
+    const match = useRouteMatch();
+    const loc = useLocation();
 
     const [options, setOptions] = useState([{
         value,
         label: ''
     }]);
+
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let _newOptions = [];
@@ -22,16 +27,46 @@ const EditFieldSelect = ({field, values, handleFieldChange}) => {
             })
         }
 
-        if (field.options) {
+        if (typeof field.options === 'object') {
             _newOptions = _newOptions.concat(field.options.map((opt) => {
                 return {
                     value: opt,
                     label: field.intlPrefix ? intl.formatMessage({id: `${field.intlPrefix}${opt}`}) : opt
                 };
             }).sort((optA, optB) => optA.label > optB.label));
-        }
 
-        setOptions(_newOptions);
+            setOptions(_newOptions);
+        } 
+        else if (typeof field.options === 'function') 
+        {
+            setLoading(true);
+            
+            setTimeout(() => {
+                
+                field.options({
+                    ...match.params,
+                    ...field.getOptionsParams
+                })
+                .then((res) => {
+                    _newOptions = _newOptions.concat(res.map((opt) => {
+                        return {
+                            value: opt[field.valueKey || field.key] || '<unknown value>',
+                            label: opt[field.labelKey || field.key] || '<unknown label>'
+                        };
+                    }).sort((optA, optB) => optA.label > optB.label));
+                    
+                    setOptions(_newOptions);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+            }, 1000);
+        } 
+        else 
+        {
+            setOptions(_newOptions);
+        }
     // eslint-disable-next-line
     }, [field.options]);
 
@@ -46,8 +81,13 @@ const EditFieldSelect = ({field, values, handleFieldChange}) => {
             fullWidth
             variant='outlined'
             displayEmpty={!field.hideEmpty}
+            startAdornment={loading ?
+                <CircularProgress size={20}/> :
+                null
+            }
         >
             {
+                !loading &&
                 options.map((opt) => {
                     return (
                         <MenuItem key={opt.value || '_empty'} value={opt.value || ''}>{opt.label}</MenuItem>

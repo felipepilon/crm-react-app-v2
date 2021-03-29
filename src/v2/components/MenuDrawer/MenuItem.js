@@ -12,7 +12,7 @@ const MenuItem = ({iconComp, to, title}) => {
     return (
         <Link component={LinkRouter} to={{
             pathname: `/v2/${store_group_code}/workspace${to}`,
-            state: {...loc.state, from: loc}
+            state: {...loc.state, from: loc, filters: undefined }
         }}>
             <ListItem button>
                 {

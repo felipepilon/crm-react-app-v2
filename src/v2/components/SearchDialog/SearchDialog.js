@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import SearchDialogContent from './SearchDialogContent';
 
-const SearchDialog = ({open, handleClose, title, modelTitle, schema, handleSubmit, values, defaultValues}) => {
+const SearchDialog = ({open, handleClose, title, modelTitle, schema, setFilters, values, defaultValues}) => {
     const theme = useTheme();
 
     const [_values, _setValues] = useState(values || {});
@@ -12,9 +12,9 @@ const SearchDialog = ({open, handleClose, title, modelTitle, schema, handleSubmi
         _setValues(defaultValues || {});
     }
 
-    const _handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        handleSubmit(_values);
+        setFilters(_values);
         handleClose();
     }
 
@@ -28,7 +28,7 @@ const SearchDialog = ({open, handleClose, title, modelTitle, schema, handleSubmi
     }
 
     return (
-        <form onSubmit={_handleSubmit} noValidate>
+        <form onSubmit={handleSubmit} noValidate>
             <Dialog open={open} onClose={_handleClose} maxWidth='sm' fullWidth disablePortal>
                 <DialogTitle style={{
                     backgroundColor: theme.palette.primary.main,
@@ -46,7 +46,7 @@ const SearchDialog = ({open, handleClose, title, modelTitle, schema, handleSubmi
                     <Button color='primary' onClick={handleReset} variant='outlined'>
                         <FormattedMessage id='Reset'/>
                     </Button>
-                    <Button color='primary' type='submit' variant='contained' onClick={_handleSubmit}>
+                    <Button color='primary' type='submit' variant='contained' onClick={handleSubmit}>
                         <FormattedMessage id='Search'/>
                     </Button>
                 </DialogActions>

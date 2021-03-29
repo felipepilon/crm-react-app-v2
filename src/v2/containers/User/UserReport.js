@@ -73,6 +73,10 @@ const addValues = {
     force_password_change: true
 }
 
+const filters = {
+    orderBy: ['name']
+}
+
 const UserReport = () => {
     const loc = useLocation();
     
@@ -93,6 +97,7 @@ const UserReport = () => {
             addSchema={addSchema} addValues={addValues} addFnc={post_User}
             editSchema={editSchema} editFnc={put_User}
             getFnc={get_User} rowId={rowId}
+            filters={filters}
         />
     );
 }

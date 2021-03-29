@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import EnhancedTable from '../EnhancedTable/EnhancedTable';
 import SearchDialog from '../SearchDialog';
 import PageHeader from './PageHeader';
@@ -9,19 +9,31 @@ import EditDialog from '../EditDialog';
 import { AppStateContext } from '../../contexts/AppState';
 import { useIntl } from 'react-intl';
 import { Can } from '../../../contexts/Can';
+import { Button } from '@material-ui/core';
+
+const reduceFilters = (_rawFilters) => Object.entries(_rawFilters || {}).reduce((prevFil, [filKey, fld]) => {
+    return {
+        ...prevFil,
+        [filKey]: typeof fld === 'object' && fld.hasOwnProperty('value') ?
+            `${fld.value || ''}${fld.likeSuffix || ''}` :
+            fld
+    };
+}, {})
 
 const ReportPage = ({
     title, columns, getDataFnc, searchSchema, addSchema,
     addValues, addFnc, editSchema, editFnc, 
-    modelName, modelTitle, getFnc, rowId
+    modelName, modelTitle, getFnc, rowId, filters
 }) => {
     const { setPageTitle } = useContext(AppStateContext);
 
     const loc = useLocation();
+    const hist = useHistory();
     const intl = useIntl();
-
+    
     const [filterOpen, setFilterOpen] = useState(false);
-    const [filters, setFilters] = useState((loc.state && loc.state.filters) || undefined);
+    const [_filters, _setFilters] = useState(reduceFilters(loc.state.filters));
+    const [_rawFilters, _setRawFilters] = useState(loc.state.filters);
     const [addOpen, setAddOpen] = useState(false);
     const [updateOpen, setUpdateOpen] = useState(false);
     const [lastUpdate, setLastUpdate] = useState(new Date());
@@ -33,21 +45,28 @@ const ReportPage = ({
     useEffect(() => {
         if (title)
             setPageTitle(title);
-
-        if (!filters)
-            setFilterOpen(true);
     // eslint-disable-next-line
     }, []);
 
-    const handleSubmitFilters = (newFilters) => {
-        const _newFilters = Object.entries(newFilters).reduce((prevFil, [filKey, fld]) => {
-            return {
-                ...prevFil,
-                [filKey]: `${fld.value || ''}${fld.likeSuffix || ''}`
-            }
-        }, {})
-        setFilters(_newFilters);
-    }
+    useEffect(() => {
+        _setFilters({
+            ...filters,
+            ...reduceFilters({
+                ...filters,
+                ..._rawFilters
+            })
+        });
+        
+        if (!_rawFilters) {
+            setFilterOpen(true);
+        }
+
+        hist.replace(loc.pathname, {
+            ...loc.state,
+            filters: _rawFilters
+        })
+    // eslint-disable-next-line
+    }, [_rawFilters])
 
     const handleEdit = (row) => {
         setSelected(row);
@@ -57,7 +76,7 @@ const ReportPage = ({
     const handleUpdate = () => {
         setLastUpdate(new Date());
     }
-
+    
     return (
         <Fragment>
             <PageHeader>
@@ -72,19 +91,21 @@ const ReportPage = ({
             <EnhancedTable columns={columns} 
                 data={data} setData={setData}
                 getDataFnc={getDataFnc} 
-                filters={filters}
+                filters={_filters}
+                noLoadData={!Boolean(_rawFilters)}
                 lastUpdate={lastUpdate}
                 handleEdit={editSchema && handleEdit}
+                hideRowNo={Boolean(editSchema)}
             />
             {
                 searchSchema &&
                 <SearchDialog 
                     modelTitle={_modelTitle} 
                     schema={searchSchema} 
-                    values={filters}
+                    values={_rawFilters}
                     open={filterOpen} 
                     handleClose={() => setFilterOpen(false)} 
-                    handleSubmit={handleSubmitFilters}
+                    setFilters={_setRawFilters}
                 />
             }
             {

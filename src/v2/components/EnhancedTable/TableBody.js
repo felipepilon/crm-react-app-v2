@@ -13,6 +13,7 @@ const TableBody = ({
         <TableBodyMUI>
             <TableCellLoading columns={columns} loading={loading}/>
             {
+                !loading &&
                 _data.map((row, idx) => {
                     const _row = { ...row, _row_id: idx + page, _row_no: idx + page + 1 };
                     

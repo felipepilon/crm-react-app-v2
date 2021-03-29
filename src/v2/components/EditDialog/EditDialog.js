@@ -62,9 +62,9 @@ const EditDialog = ({
         }
 
         editFnc({
-            ...match.params, 
+            ...match.params,
             [rowId]: values && rowId && values[rowId],
-            params: _values
+            ..._values
         })
         .then(() => {
             setLoading(null);

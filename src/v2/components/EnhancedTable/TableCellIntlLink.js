@@ -27,7 +27,7 @@ const TableCellIntlLink = ({row, column}) => {
                 component={LinkRouter}
                 to={{
                     pathname: to,
-                    state: { from: loc }
+                    state: { from: loc, filters: {} }
                 }}
             >
                 <FormattedMessage id={value}/>
