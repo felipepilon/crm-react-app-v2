@@ -25,7 +25,8 @@ const addSchema = {
             key: 'main',
             fields: [
                 { key: 'store_group_code', title: 'Store Group Code', required: true },
-                { key: 'name', title: 'Name', required: true }
+                { key: 'name', title: 'Name', required: true },
+                { key: 'email_domain', title: 'Email Domain' }
             ]
         }
     ]
@@ -37,7 +38,8 @@ const editSchema = {
             key: 'main',
             fields: [
                 { key: 'store_group_code', title: 'Store Group Code', comp: 'label' },
-                { key: 'name', title: 'Name', required: true }
+                { key: 'name', title: 'Name', required: true },
+                { key: 'email_domain', title: 'Email Domain' }
             ]
         }
     ]
@@ -46,6 +48,7 @@ const editSchema = {
 const columns = [
     { key: 'store_group_code', title: 'Store Group Code' },
     { key: 'name', title: 'Name' },
+    { key: 'email_domain', title: 'Email Domain' },
     { key: 'created_at', title: 'Created At', comp: 'datetime' },
     { key: 'updated_at', title: 'Updated At', comp: 'datetime' },
     { key: 'updated_by', title: 'Updated By' }

@@ -6,6 +6,7 @@ import EditFieldText from './EditFieldText';
 import EditFieldLabel from './EditFieldLabel';
 import EditFieldPassword from './EditFieldPassword';
 import EditFieldSelect from './EditFieldSelect';
+import EditFieldNumber from './EditFieldNumber';
 
 const comps = {
     default: EditFieldText,
@@ -13,6 +14,7 @@ const comps = {
     label: EditFieldLabel,
     password: EditFieldPassword,
     select: EditFieldSelect,
+    number: EditFieldNumber
 }
 
 const EditField = ({field, errors, ...other}) => {
@@ -21,14 +23,18 @@ const EditField = ({field, errors, ...other}) => {
     const error = (errors && errors[field.key]) || '';
 
     return (
-        <Box display='flex' alignItems='center' padding={1} width='100%'>
-            <Typography variant='body1' style={{width: '40%'}}>
+        <Box display='flex' alignItems='center' width='100%'>
+            <Typography variant='body1' style={{width: '30%'}}>
                 {
                     field.title &&
                     <FormattedMessage id={field.title}/>
                 }
+                {
+                    field.required &&
+                    <FormattedMessage id='constant.required_field_indicator'/>
+                }
             </Typography>
-            <FormControl error={Boolean(error)} fullWidth size='small'>
+            <FormControl error={Boolean(error)} fullWidth size='small' style={{flex: '1'}}>
                 <FormControlLabel id={field.key}
                     control={<FieldComponent field={field} {...other}/>}
                 />

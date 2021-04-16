@@ -98,7 +98,7 @@ const EditDialog = ({
 
     return (
         <form onSubmit={_handleSubmit} noValidate autoComplete='off'>
-            <Dialog open={open} onClose={_handleClose} maxWidth='sm' fullWidth disablePortal>
+            <Dialog open={open} onClose={_handleClose} maxWidth='md' fullWidth disablePortal>
                 <DialogTitle style={{
                     backgroundColor: theme.palette.primary.main,
                     color: theme.palette.primary.contrastText

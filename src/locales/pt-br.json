@@ -236,6 +236,7 @@
     "This customer was never contacted": "Este cliente nunca foi contatado",
     "constant.last_contact_msg": "Este cliente foi contatado pela última vez em {contact_date} por {salesman_name} na loja {store_name} para falar sobre {reasons}",
     "constant.table_row_no": "#",
+    "constant.required_field_indicator": "*",
     "User inactive. Contact system administrator": "Usuário inativo. Contate o adminsitrador do sistema",
     "You need to reset your password": "Você precisa redefinir sua senha",
     "Enter your current password": "Informe sua senha atual",
@@ -275,5 +276,8 @@
     "Reserve closed successfully": "Reserva fechada com sucesso",
     "Reserve canceled successfully": "Reserva cancelada com sucesso",
     "Loading reserves": "Carregando reservas",
-    "Loading contacts": "Carregamento contatos"
+    "Loading contacts": "Carregamento contatos",
+    "Email Domain": "Domínio de Email",
+    "Connectors": "Conectores",
+    "Connector": "Conector"
 }

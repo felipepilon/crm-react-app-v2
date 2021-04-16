@@ -1,14 +1,13 @@
 import { CircularProgress, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { useLocation, useRouteMatch } from 'react-router';
+import { useRouteMatch } from 'react-router';
 
 const EditFieldSelect = ({field, values, handleFieldChange}) => {
     const value = values[field.key] || '';
 
     const intl = useIntl();
     const match = useRouteMatch();
-    const loc = useLocation();
 
     const [options, setOptions] = useState([{
         value,
@@ -85,6 +84,7 @@ const EditFieldSelect = ({field, values, handleFieldChange}) => {
                 <CircularProgress size={20}/> :
                 null
             }
+            readOnly={Boolean(field.readOnly)}
         >
             {
                 !loading &&

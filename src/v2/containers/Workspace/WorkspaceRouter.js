@@ -5,6 +5,7 @@ import User from '../User'
 import WorkspaceHome from '../WorkspaceHome';
 import Reserves from '../Reserves';
 import StoreGroup from '../StoreGroup';
+import Connector from '../Connector';
 
 const AppRouter = () => {
     const match = useRouteMatch();
@@ -26,6 +27,9 @@ const AppRouter = () => {
             </Route>
             <Route path={`${path}/storeGroups`}>
                 <StoreGroup/>
+            </Route>
+            <Route path={`${path}/connectors`}>
+                <Connector/>
             </Route>
             <Route path={`${path}*`}>
                 <div>Not Found Workspace</div>

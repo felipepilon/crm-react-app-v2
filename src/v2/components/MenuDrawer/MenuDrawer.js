@@ -26,10 +26,11 @@ const MenuDrawer = () => {
                     <Can I='read' a='User'>
                         <MenuItem title='Users' to='/users'/>
                     </Can>
-                </List>
-                <List>
                     <Can I='read' a='StoreGroup'>
                         <MenuItem title='Store Groups' to='/storeGroups'/>
+                    </Can>
+                    <Can I='read' a='Connector'>
+                        <MenuItem title='Connectors' to='/connectors'/>
                     </Can>
                 </List>
             </Box>
