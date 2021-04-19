@@ -190,7 +190,7 @@
     "Generate a Token first": "Gere um Token antes",
     "Copied": "Copiado",
     "Confirm Token Generation": "Confirme Novo Token",
-    "Token generation confirmation text part 1": "Deseja realmente gerar um novo Token?",
+    "Token generation confirmation text part 1": "Deseja realmente gerar um novo Token para Loja {store_name}?",
     "Token generation confirmation text part 2": "Qualquer Token gerado anteriormente será inativado imediatamente podendo afetar a sincronização em lojas ativas.",
     "User doesn't belong to any store group": "Usuário não pertence à nenhum Grupo de Lojas",
     "Connector Configurations not found": "Configurações do Conector não encontradas",
@@ -279,5 +279,6 @@
     "Loading contacts": "Carregamento contatos",
     "Email Domain": "Domínio de Email",
     "Connectors": "Conectores",
-    "Connector": "Conector"
+    "Connector": "Conector",
+    "Close": "Fechar"
 }

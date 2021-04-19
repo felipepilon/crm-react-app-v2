@@ -7,7 +7,7 @@ const EditFieldNumber = ({field, values, handleFieldChange}) => {
     const _handleFieldChange = (e) => {
         handleFieldChange(field.key, e.target.value || null);
     }
-
+    
     return (
         <OutlinedInput
             onChange={_handleFieldChange} 

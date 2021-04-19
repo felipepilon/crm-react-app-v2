@@ -9,7 +9,6 @@ import EditDialog from '../EditDialog';
 import { AppStateContext } from '../../contexts/AppState';
 import { useIntl } from 'react-intl';
 import { Can } from '../../../contexts/Can';
-import { Button } from '@material-ui/core';
 
 const reduceFilters = (_rawFilters) => Object.entries(_rawFilters || {}).reduce((prevFil, [filKey, fld]) => {
     return {

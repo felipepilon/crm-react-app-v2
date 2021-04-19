@@ -1,8 +1,10 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useRouteMatch } from 'react-router';
 import { AppStateContext } from '../../contexts/AppState';
+import DialogForm from '../DialogForm';
 import LoadingAbsoluteBox from '../LoadingAbsoluteBox/LoadingAbsoluteBox';
 import EditDialogContent from './EditDialogContent';
 
@@ -96,22 +98,14 @@ const EditDialog = ({
         loadValues();
     }
 
+    const _title = title || (action === 'add' ? 'Add {modelTitle}' : 'Update {modelTitle}');
+
     return (
-        <form onSubmit={_handleSubmit} noValidate autoComplete='off'>
-            <Dialog open={open} onClose={_handleClose} maxWidth='md' fullWidth disablePortal>
-                <DialogTitle style={{
-                    backgroundColor: theme.palette.primary.main,
-                    color: theme.palette.primary.contrastText
-                }}>
-                    <FormattedMessage 
-                        id={title || (action === 'add' ? 'Add {modelTitle}' : 'Update {modelTitle}')} 
-                        values={{modelTitle}}
-                    />
-                </DialogTitle>
-                <DialogContent>
-                    <EditDialogContent schema={schema} values={_values} errors={(error && error.fields) || {}} handleFieldChange={handleFieldChange}/>
-                </DialogContent>
-                <DialogActions>
+        <DialogForm open={open} title={_title} titleValues={{modelTitle}}
+            handleClose={_handleClose}
+            handleSubmit={_handleSubmit}
+            actions={
+                <Fragment>
                     <Button color='primary' onClick={_handleClose} variant='outlined'>
                         <FormattedMessage id='Cancel'/>
                     </Button>
@@ -121,10 +115,11 @@ const EditDialog = ({
                     <Button color='primary' type='submit' variant='contained' onClick={_handleSubmit}>
                         <FormattedMessage id={action === 'add' ? 'Submit' : 'Update'}/>
                     </Button>
-                </DialogActions>
-                <LoadingAbsoluteBox loading={loading}/>
-            </Dialog>
-        </form>
+                </Fragment>
+            }
+        >
+            <EditDialogContent schema={schema} values={_values} errors={(error && error.fields) || {}} handleFieldChange={handleFieldChange}/>
+        </DialogForm>
     );
 }
  

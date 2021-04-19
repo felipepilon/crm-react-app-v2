@@ -6,6 +6,7 @@ import TableCellDatetime from './TableCellDatetime';
 import TableCellIcon from './TableCellIcon';
 import TableCellIntl from './TableCellIntl';
 import TableCellIntlLink from './TableCellIntlLink';
+import TableCellIntFnc from './TableCellIntFnc';
 import TableCellColapsable from './TableCellColapsable';
 
 const comps = {
@@ -15,6 +16,7 @@ const comps = {
     icon: TableCellIcon,
     intl: TableCellIntl,
     intlLink: TableCellIntlLink,
+    intlFnc: TableCellIntFnc,
     colapsable: TableCellColapsable
 }
 
