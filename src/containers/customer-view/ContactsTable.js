@@ -9,7 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Box } from '@material-ui/core';
 import { 
     get_Contacts,
-    get_Interactions,
+    get_ContactInteractions,
 } from '../../services/Contact';
 
 const ContactsTable = (props) => {
@@ -36,7 +36,7 @@ const ContactsTable = (props) => {
     }
 
     const loadColapsableData = (refRow, setColapsableData) => {
-        get_Interactions({contact_id: refRow.contact_id})
+        get_ContactInteractions({contact_id: refRow.contact_id})
         .then((result) => {
             const newColapsedData = result.map((res) => {
                 return {

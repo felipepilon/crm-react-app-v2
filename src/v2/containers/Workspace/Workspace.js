@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { AppStateContext } from '../../../contexts/AppState';
 import WorkspaceContextProvider from '../../contexts/Workspace';
-import WorkBar from '../WorkBar/WorkBar';
 import WorkspaceWrapper from './WorkspaceWrapper';
 import WorkspaceRouter from './WorkspaceRouter';
+import PageWrapper from '../../components/Page/PageWrapper';
 import { useRouteMatch } from 'react-router-dom';
-import MenuDrawer from '../MenuDrawer';
+import MenuDrawer from '../../components/MenuDrawer';
+import WorkBar from '../../components/WorkBar';
+import SuccessSnack from '../../components/SuccessSnack';
 
 const Workspace = () => {
     const { store_group_code } = useRouteMatch().params;
@@ -21,25 +23,13 @@ const Workspace = () => {
             <WorkspaceWrapper>
                 <WorkBar/>
                 <MenuDrawer/>
-                <WorkspaceRouter/>
+                <PageWrapper>
+                    <WorkspaceRouter/>
+                </PageWrapper>
+                <SuccessSnack/>
             </WorkspaceWrapper>
         </WorkspaceContextProvider>
     );
-
-    /*
-    <Box
-            display='flex'
-            flexDirection='column'
-            minHeight='0'
-            height='100%'
-        >
-            <WorkBar/>
-            <MenuDrawer/>
-            <WorkspaceWrapper/>
-            <Box height='30px'>Footer</Box>
-            <SuccessSnack/>
-        </Box>
-    */
 }
  
 export default Workspace;

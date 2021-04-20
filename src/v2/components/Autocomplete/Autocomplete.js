@@ -31,7 +31,7 @@ const keyAction = (e, value) => {
 const Autocomplete = ({
     minLength, getOptionsFnc, valueField, labelField,
     labelOptionField, getOptionsParams, getOptionsField,
-    handleChange, inputLabel, filterField
+    handleSelect, inputLabel, filterField, selected
 }) => {
     const theme = useTheme();
     const intl = useIntl();
@@ -41,7 +41,7 @@ const Autocomplete = ({
     const [options, setOptions] = useState([]);
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selected, setSelected] = useState({value: '', label: ''});
+    const [_selected, _setSelected] = useState({value: '', label: ''});
     const [lastSearchLabel, setLastSearchLabel] = useState('');
     const [lastSelectedValue, setLastSelectedValue] = useState('');
     const [open, setOpen] = useState(false);
@@ -69,12 +69,12 @@ const Autocomplete = ({
     }
 
     const setSelectedValue = (newSelVal) => {
-        setSelected(newSelVal);
+        _setSelected(newSelVal);
         setLastSelectedValue(newSelVal.value);
         handleClose();
 
-        if (handleChange && newSelVal.raw)
-            handleChange(newSelVal.raw);
+        if (handleSelect && newSelVal.raw)
+            handleSelect(newSelVal.raw);
     }
 
     const handleClose = () => {
@@ -85,17 +85,17 @@ const Autocomplete = ({
     
     const handleSelectedValueChange = (e) => {
         const value = e.target.value;
-        setSelected(() => ({value, label: value}));
+        _setSelected(() => ({value, label: value}));
         if (value !== lastSelectedValue)
             setLastSelectedValue('')
     }
     
     const handleRefreshOptions = (force) => {
-        if (selected.label.length >= _minLength && lastSelectedValue !== selected.value) {
-            if (force || (!filteredOptions.length && selected.label !== lastSearchLabel)) {
+        if (_selected.label.length >= _minLength && lastSelectedValue !== _selected.value) {
+            if (force || (!filteredOptions.length && _selected.label !== lastSearchLabel)) {
                 setLoading(true);
 
-                const getOptionsValue = `%${selected.value}%`;
+                const getOptionsValue = `%${_selected.value}%`;
 
                 let _getOptionsParams = getOptionsParams ? {
                         ...getOptionsParams,
@@ -133,19 +133,47 @@ const Autocomplete = ({
             handleClose();
         }
 
-        setLastSearchLabel(selected.label);
+        setLastSearchLabel(_selected.label);
     }
 
     useEffect(() => {
         handleRefreshOptions();
     // eslint-disable-next-line
-    }, [selected.label]);
+    }, [_selected.label]);
+
+    useEffect(() => {
+        if (!selected) {
+            _setSelected({value: '', label: ''})
+        } else {
+            const _valueField = valueField || 'value';
+            const _filterField = filterField || _valueField;
+            const _labelField = labelField || (selected.hasOwnProperty('label') ? 'label' : _valueField);
+            const _labelOptionField = labelOptionField || (selected.hasOwnProperty('labelOption') ? 'labelOption' : _labelField);
+
+            const _value = (typeof _valueField === 'function' ? _valueField({selected}) : selected[_valueField]) || '';
+            
+            if (_value !== _selected.value) {
+                _setSelected(
+                    _value ?
+                    {
+                        value: typeof _valueField === 'function' ? _valueField({selected}) : selected[_valueField],
+                        filter: typeof _filterField === 'function' ? _filterField({selected}) : selected[_filterField],
+                        label: typeof _labelField === 'function' ? _labelField({selected}) : selected[_labelField],
+                        optionLabel: typeof _labelOptionField === 'function' ? _labelOptionField({selected}) : selected[_labelOptionField],
+                        raw: selected
+                    } :
+                    {value: '', label: ''}
+                );
+            }
+        }
+    // eslint-disable-next-line
+    }, [selected])
 
     useEffect(() => {
         if (options.length) {
-            const newFilOpt = options.filter((opt) => opt.filter.toUpperCase().includes(selected.label.toUpperCase()));
+            const newFilOpt = options.filter((opt) => opt.filter.toUpperCase().includes(_selected.label.toUpperCase()));
 
-            if (selected.label !== lastSearchLabel)
+            if (_selected.label !== lastSearchLabel)
                 handleRefreshOptions(true);
             else 
                 setFilteredOptions(newFilOpt);
@@ -154,7 +182,7 @@ const Autocomplete = ({
             setFilteredOptions([]);
         }
     // eslint-disable-next-line
-    }, [selected.label, options]);
+    }, [_selected.label, options]);
     
     let listOptions = []
     
@@ -169,7 +197,7 @@ const Autocomplete = ({
     return (
         <Fragment>
             <TextField label={inputLabel && intl.formatMessage({id: inputLabel})} fullWidth
-                value={selected.label} onChange={handleSelectedValueChange} 
+                value={_selected.label} onChange={handleSelectedValueChange} 
                 onKeyDown={(e) => handleOptionChange(keyAction(e, (highlightIndex > 0 && listOptions[highlightIndex])))}
                 onFocus={() => handleRefreshOptions(true)}
                 ref={setAnchorEl}

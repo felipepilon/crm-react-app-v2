@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { Typography, Link, useTheme, Box, fade } from '@material-ui/core';
-import { Link as LinkRouter } from 'react-router-dom';
+import { Link as LinkRouter, useLocation } from 'react-router-dom';
 import { WorkspaceContext } from '../../contexts/Workspace';
 import { get_Customers } from '../../../services/Customer';
 import LabelMasks from '../../../utils/LabelMasks';
@@ -10,6 +10,7 @@ const CustomerSearchToContact = () => {
     const { store_group_code } = useContext(WorkspaceContext);
 
     const theme = useTheme();
+    const loc = useLocation();
 
     return (
         <Box
@@ -18,7 +19,7 @@ const CustomerSearchToContact = () => {
             width='20em'
         >
             <Autocomplete inputLabel='Customer'
-                valueField='customer_id'
+                valueField='customer_code'
                 filterField='search_index'
                 labelField='name'
                 getOptionsFnc={get_Customers}
@@ -26,7 +27,10 @@ const CustomerSearchToContact = () => {
                 getOptionsField='search_index'
                 labelOptionField={(({opt}) => {
                     return (
-                        <Link component={LinkRouter} to={`/v2/${store_group_code}/workspace/customers/${opt.customer_id}/contact`}>
+                        <Link component={LinkRouter} to={{
+                            pathname: `/v2/${store_group_code}/workspace/customers/${opt.customer_code}/contact`,
+                            state: {...loc.state, from: loc}
+                        }}>
                             <Typography variant='subtitle2'>
                                 {opt.cpf ? LabelMasks.cpf(opt.cpf) : ''} {opt.name ? opt.name : ''}
                             </Typography>

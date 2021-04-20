@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { useLocation } from 'react-router-dom';
 import { WorkspaceStateContext } from '../../contexts/WorkspaceState';
 import SalesPanel from '../sales-view/SalesPanel';
-import Agenda from '../agenda-view/Agenda';
 import { Link as RouterLink } from 'react-router-dom';
 import { Can } from '../../contexts/Can';
 
@@ -21,7 +20,6 @@ const WorkspaceHome = () => {
 
     return (
         <Container style={{display: 'flex', paddingTop: theme.spacing(2)}}>
-            <Agenda/>
             <Can I='read' a='SalesPanel'>
                 <SalesPanel/>
             </Can>

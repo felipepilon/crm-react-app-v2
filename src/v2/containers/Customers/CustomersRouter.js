@@ -8,7 +8,7 @@ const CustomersRouter = () => {
 
     return (
         <Switch>
-            <Route path={`${path}/:customer_id/contact`}>
+            <Route path={`${path}/:customer_code/contact`}>
                 <CustomerContact/>
             </Route>
             <Route path={path}>

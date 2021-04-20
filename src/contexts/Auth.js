@@ -17,7 +17,7 @@ const AuthContextProvider = props => {
 
     const storeGroup = (loc.state && loc.state.storeGroup) || {};
     const user = (loc.state && loc.state.user) || {};
-
+    
     const setStoreGroup = (newStoreGroup) => {
         hist.replace(loc.pathname, { ...loc.state, storeGroup: newStoreGroup });
     }
@@ -29,8 +29,8 @@ const AuthContextProvider = props => {
     const [ authenticated, setAuthenticated ] = useState(false);
     
     const authenticate = () => {
-        console.log('authenticate', authenticated)
-
+        console.log('authenticated', authenticated)
+        
         get_AuthUser()
         .then((resUsr) => {
             setUser(resUsr);

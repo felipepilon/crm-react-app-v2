@@ -14,9 +14,9 @@ import TableCell from '../../components/table2/TableCell';
 import LoadingProgress from '../../components/table2/LoadingProgress';
 import Pagination from '../../components/table2/Pagination';
 import DenseSwitch from '../../components/table2/DenseSwitch';
-import { get_ReserveDetails } from '../../services/Reserve';
 import { useLocation } from 'react-router-dom';
 import ListPageButtonLink from '../../components/list-page/ListPageButtonLink';
+import { get_ReserveProducts } from '../../services/ReserveProduct';
 
 const ReserveList = () => {
     const loc = useLocation();
@@ -28,7 +28,7 @@ const ReserveList = () => {
     const [dense, setDense] = useState('normal');
 
     useEffect(() => {
-        get_ReserveDetails()
+        get_ReserveProducts()
         .then((res) => {
             console.log('res', res)
             setData(res);
@@ -40,7 +40,7 @@ const ReserveList = () => {
         setLoading(true);
         setData([]);
 
-        get_ReserveDetails()
+        get_ReserveProducts()
         .then((res) => {
             setData(res);
             setLoading(false);

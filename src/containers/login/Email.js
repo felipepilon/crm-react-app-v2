@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, useTheme, Box } from '@material-ui/core';
 import { FormattedMessage, useIntl } from 'react-intl';
 import isEmail from 'validator/lib/isEmail';
-import { get_User } from '../../services/Auth';
+import { get_UserByEmail } from '../../services/Auth';
 import { useHistory } from 'react-router-dom';
 
 const Email = () => {
@@ -17,7 +17,7 @@ const Email = () => {
     {
         e.preventDefault();
 
-        get_User({email})
+        get_UserByEmail({email})
         .then((res) => {
             if (!res.active) {
                 setError('User inactive. Contact system administrator');

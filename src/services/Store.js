@@ -2,7 +2,7 @@
 import { handleResponse, handleError } from '../utils/ResponseHandler';
 import api from './API';
 
-export const get_Stores = ({store_group_code, params}) => {
+export const get_Stores = ({store_group_code, ...params}) => {
     return api.get(`/v2/${store_group_code}/stores`, {params})
     .then(handleResponse)
     .catch(handleError);

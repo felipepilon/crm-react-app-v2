@@ -3,7 +3,7 @@ import { Select, MenuItem, InputLabel, FormControl, useTheme, FormHelperText } f
 import { FormattedMessage } from 'react-intl';
 import { get_StoreSalespeople } from '../../../services/Store';
 
-const SalesmanSelect = ({store_group_code, store_code, salesman_code, handleSalesmanIdChange, error, disabled}) => {
+const SalesmanSelect = ({store_group_code, store_code, salesman_code, handleChange, error, disabled}) => {
     const [ options, setOptions ] = useState([]);
     const value = salesman_code;
 
@@ -29,7 +29,7 @@ const SalesmanSelect = ({store_group_code, store_code, salesman_code, handleSale
     }, [store_group_code, store_code]);
 
     useEffect(() => {
-        handleSalesmanIdChange(options.length === 1 ? options[0].value : null);
+        handleChange(options.length === 1 ? options[0].value : null);
     // eslint-disable-next-line
     }, [options]);
 
@@ -44,7 +44,7 @@ const SalesmanSelect = ({store_group_code, store_code, salesman_code, handleSale
                 displayEmpty
                 fullWidth
                 value={value || ''}
-                onChange={(e) => handleSalesmanIdChange(e.target ? e.target.value : '')}
+                onChange={(e) => handleChange(e.target ? e.target.value : '')}
                 disabled={disabled}
             >
                 {
