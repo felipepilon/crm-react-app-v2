@@ -9,7 +9,7 @@ import OnGoingCallTimer from './OnGoingCallTimer';
 import ContactFeedback from './ContactFeedback';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { formatISO } from 'date-fns';
-import { post_Contact, post_Interactions, put_Contact } from '../../../services/Contact';
+import { post_Interactions, put_Contact } from '../../../services/Contact';
 
 const PhoneCallPanel = ({
     contactVia, contact, customer, setContact,

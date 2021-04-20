@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, setRef, TextField, Tooltip, Typography, useTheme } from '@material-ui/core';
+import { Box, Button, IconButton, TextField, Tooltip, Typography, useTheme } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import DialogForm from '../DialogForm';

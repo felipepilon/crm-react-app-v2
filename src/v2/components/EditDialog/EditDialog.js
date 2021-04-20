@@ -1,11 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useRouteMatch } from 'react-router';
 import { AppStateContext } from '../../contexts/AppState';
 import DialogForm from '../DialogForm';
-import LoadingAbsoluteBox from '../LoadingAbsoluteBox/LoadingAbsoluteBox';
 import EditDialogContent from './EditDialogContent';
 
 const EditDialog = ({
@@ -14,7 +13,6 @@ const EditDialog = ({
 }) => {
     const { setError: setErrorContext } = useContext(AppStateContext);
 
-    const theme = useTheme();
     const match = useRouteMatch();
     
     const [_values, _setValues] = useState(values || {});
