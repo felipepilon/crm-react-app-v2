@@ -69,11 +69,10 @@ const ContactCenter = ({store_group_code, customer, setContactsLastUpdate}) => {
         put_Contact({
             store_group_code,
             contact_id: contact.contact_id,
-            params: {
-                status: 'Completed',
-                contact_end_date: new Date(),
-                reminder_date: loc.state && loc.state.reminder_date
-            }
+            customer_code: contact.customer_code,
+            status: 'Completed',
+            contact_end_date: new Date(),
+            reminder_date: loc.state && loc.state.reminder_date
         })
         .then(() => {
             setContact({
