@@ -13,7 +13,7 @@ export const put_Contact = ({store_group_code, contact_id, ...params}) => {
     .catch(handleError);
 }
 
-export const post_Interactions = ({store_group_code, contact_id, ...params}) => {
+export const post_Interactions = ({store_group_code, contact_id, params}) => {
     return api.post(`/v2/${store_group_code}/contacts/${contact_id}/interactions`, params)
     .then(handleResponse)
     .catch(handleError);

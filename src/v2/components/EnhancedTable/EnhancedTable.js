@@ -60,9 +60,6 @@ const EnhancedTable = ({
     }, [rowsPerPage]);
 
     useEffect(() => {
-        console.log('params', match.params);
-        console.log('filters', filters);
-
         if (noLoadData) {
             if (_data.length)
                 setData([]);

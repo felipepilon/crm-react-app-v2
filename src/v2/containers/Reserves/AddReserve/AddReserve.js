@@ -20,8 +20,8 @@ const AddReserve = () => {
     const [ products, setProducts ] = useState([]);
     const [ activeStep, setActiveStep ] = useState(0);
     const [ completed, setCompleted ] = useState({});
-    const [ store_code, handleStoreChange ] = useState(null);
-    const [ salesman_code, handleSalesmanChange ] = useState(null);
+    const [ store_code, setStoreCode ] = useState(null);
+    const [ salesman_code, setSalesmanCode ] = useState(null);
     const [ reminder_date, setReminderDate ] = useState(addDays(new Date(), 7));
     // eslint-disable-next-line
     const [ errors, setErrors ] = useState({});
@@ -142,71 +142,15 @@ const AddReserve = () => {
                     handleNextStep={handleNextStep}
                 />
                 <ReserveCheckout step={2} activeStep={activeStep}
-                    store_code={store_code} salesman_code={salesman_code}
-                    handleStoreChange={handleStoreChange}
-                    handleSalesmanChange={handleSalesmanChange}
-                    reminder_date={reminder_date}
-                    setReminderDate={setReminderDate}
+                    store_code={store_code} handleStoreChange={setStoreCode}
+                    salesman_code={salesman_code} handleSalesmanChange={setSalesmanCode}
+                    reminder_date={reminder_date} handleReminderDateChange={setReminderDate}
                     disableSubmit={disableSubmit}
                     handleConfirmReserve={handleConfirmReserve}
                 />
             </Box>
         </Container>
     );
-
-    /*return (
-        <Container>
-            <Stepper nonLinear activeStep={activeStep}>
-                <Step>
-                    <StepButton onClick={handleStep(0)} completed={completed[0]}>
-                        <FormattedMessage id='Customer'/>
-                    </StepButton>
-                </Step>
-                <Step>
-                    <StepButton onClick={handleStep(1)} completed={completed[1]}>
-                        <FormattedMessage id='Products'/>
-                    </StepButton>
-                </Step>
-                <Step disabled={disableCheckout}>
-                    <StepButton onClick={handleStep(1)} completed={completed[2]}>
-                        <FormattedMessage id='Checkout'/>
-                    </StepButton>
-                </Step>
-            </Stepper>
-            <Box
-                display='flex'
-            >
-                <ReserveCustomer
-                    step={0}
-                    activeStep={activeStep}
-                    customer={customer}
-                    setCustomer={setCustomer}
-                    handleNextStep={handleNextStep}
-                />
-                <ReserveProduct
-                    step={1}
-                    activeStep={activeStep}
-                    products={products}
-                    store_group_id={customer && customer.store_group_id}
-                    handleAddProduct={handleAddProduct}
-                    handleRemoveProduct={handleRemoveProduct}
-                    handleNextStep={handleNextStep}
-                />
-                <ReserveCheckout
-                    step={2}
-                    activeStep={activeStep}
-                    store_id={store_id}
-                    salesman_id={salesman_id}
-                    handleStoreIdChange={handleStoreIdChange}
-                    handleSalesmanIdChange={handleSalesmanIdChange}
-                    reminderDate={reminderDate}
-                    setReminderDate={setReminderDate}
-                    disableSubmit={disableSubmit}
-                    handleConfirmReserve={handleConfirmReserve}
-                />
-            </Box>
-        </Container>
-    );*/
 }
  
 export default AddReserve;

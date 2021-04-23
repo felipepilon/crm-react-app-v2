@@ -10,8 +10,8 @@ const AgendaGroupItem = ({customer, reason_type, reminder_date}) => {
     const loc = useLocation();
 
     const to = {
-        pathname: `${loc.pathname}/customers/view/${customer.customer_id}`,
-        state: {reason_type, reminder_date, from: loc}
+        pathname: `${loc.pathname}/customers/${customer.customer_code}/contact`,
+        state: { ...loc.state, reason_type, reminder_date, from: loc }
     }
 
     return (

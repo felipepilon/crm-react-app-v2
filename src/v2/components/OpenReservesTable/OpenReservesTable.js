@@ -65,7 +65,7 @@ const OpenReservesTable = ({customer, lastUpdate, setLastUpdate}) => {
         put_ReserveProduct({
             ...match.params,
             reserve_product_id: reserve.reserve_product_id,
-            params: { status }
+            status
         })
         .then(() => {
             setLastUpdate(new Date());

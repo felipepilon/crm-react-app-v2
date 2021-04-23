@@ -3,17 +3,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { get_AgendaSummary } from '../../../services/Agenda';
 import { AppStateContext } from '../../contexts/AppState';
 import { WorkspaceContext } from '../../contexts/Workspace';
-import AgendaWrapper from './AgendaWrapper';
-import Birthdays from './Birthdays';
-import Reserves from './Reserves';
-import TodaysSales from './TodaysSales';
-import Missing30Days from './Missing30Days';
+import { Paper, useTheme } from '@material-ui/core';
+import AgendaItems from './AgendaItems';
+import AgendaChart from './AgendaChart';
 
 const loadingStatus = 'Loading Agenda';
 
 const AgendaSummaryView = () => {
     const { addStatus, removeStatus, setError } = useContext(AppStateContext);
     const { store_group_code } = useContext(WorkspaceContext);
+
+    const theme = useTheme();
 
     const [data, setData] = useState([]);
     
@@ -38,12 +38,16 @@ const AgendaSummaryView = () => {
     const missing30Days = data.find((itm) => itm.agenda_item_id === 'Missing30Days');
 
     return (
-        <AgendaWrapper>
-            <Birthdays store_group_code={store_group_code} summaryData={birthdays}/>
-            <Reserves store_group_code={store_group_code} summaryData={reserves}/>
-            <TodaysSales store_group_code={store_group_code} summaryData={todaysSales}/>
-            <Missing30Days store_group_code={store_group_code} summaryData={missing30Days}/>
-        </AgendaWrapper>
+        <Paper style={{flex: '1', display: 'flex', padding: theme.spacing(1)}}>
+            <AgendaItems store_group_code={store_group_code}
+                birthdays={birthdays} reserves={reserves}
+                todaysSales={todaysSales} missing30Days={missing30Days}
+            />
+            <AgendaChart 
+                birthdays={birthdays} reserves={reserves}
+                todaysSales={todaysSales} missing30Days={missing30Days}
+            />
+        </Paper>
     );
 }
  
