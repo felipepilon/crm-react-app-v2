@@ -28,7 +28,7 @@ const CustomerSearchToContact = () => {
                 labelOptionField={(({opt}) => {
                     return (
                         <Link component={LinkRouter} to={{
-                            pathname: `/v2/${store_group_code}/workspace/customers/${opt.customer_code}/contact`,
+                            pathname: `/${store_group_code}/workspace/customers/${opt.customer_code}/contact`,
                             state: {...loc.state, from: loc}
                         }}>
                             <Typography variant='subtitle2'>

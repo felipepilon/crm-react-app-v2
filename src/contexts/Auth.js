@@ -1,43 +1,27 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { AppStateContext } from './AppState';
 import { get_AuthUser } from '../services/Auth';
 import { AbilityContext } from './Can';
 import AbilityUpdater from '../ability/AbilityUpdater';
-import { useHistory, useLocation } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = props => {
-    const loc = useLocation();
-    const hist = useHistory();
-
-    const { setStatus, status } = useContext(AppStateContext);
-
     const ability = useContext(AbilityContext);
-
-    const storeGroup = (loc.state && loc.state.storeGroup) || {};
-    const user = (loc.state && loc.state.user) || {};
     
-    const setStoreGroup = (newStoreGroup) => {
-        hist.replace(loc.pathname, { ...loc.state, storeGroup: newStoreGroup });
-    }
-
-    const setUser = (newUser) => {
-        hist.replace(loc.pathname, { ...loc.state, user: newUser });
-    }
-
+    const [ user, setUser ] = useState({});
+    const [ loading, setLoading ] = useState(true);
     const [ authenticated, setAuthenticated ] = useState(false);
-    
+
     const authenticate = () => {
-        console.log('authenticated', authenticated)
+        console.log('authenticate called')
+
+        setLoading(true);
         
         get_AuthUser()
         .then((resUsr) => {
             setUser(resUsr);
             setAuthenticated(true);
-
-            if (status === 'initiating')
-                setStatus('loading');
+            setLoading(false);
         })
         .catch((err) => {
             console.error('Initial authentication failed');
@@ -48,20 +32,19 @@ const AuthContextProvider = props => {
 
     const deauthenticate = () => {
         setUser({});
-        setStoreGroup({});
         setAuthenticated(false);
-        setStatus('loading');
+        setLoading(false);
     };
-
-    useEffect(() => {
-        authenticate();
-    // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         AbilityUpdater(ability, user, authenticated);
     // eslint-disable-next-line
     }, [user, authenticated])
+
+    useEffect(() => {
+        authenticate();
+    // eslint-disable-next-line
+    }, [])
 
     return (
         <AuthContext.Provider value={{
@@ -69,8 +52,7 @@ const AuthContextProvider = props => {
             authenticated,
             authenticate,
             deauthenticate,
-            setUser,
-            storeGroup, setStoreGroup
+            loading
         }}
         >
             { props.children }

@@ -18,8 +18,7 @@ const UnauthRoute = ({ children, ...other }) => {
             ) : (
                 <Redirect
                     to={{
-                        pathname: store_group_code ? `/v2/${store_group_code}/workspace` : '/v2/storeGroups',
-                        state: { ...location, from: location }
+                        pathname: store_group_code ? `/${store_group_code}/workspace` : '/storeGroups'
                     }}
                 />
             )

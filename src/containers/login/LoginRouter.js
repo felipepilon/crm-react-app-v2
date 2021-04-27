@@ -19,21 +19,18 @@ const LoginRouter = () => {
                 <Email/>
             </Route>
             <Route path={`${path}/password`}
-                render={({location}) => {
+                render={() => {
                     return (
                         state.user ?
                         state.user.force_password_change ?
                         <PasswordForceChange/> :
                         <Password/> :
-                        <Redirect to={{
-                            pathname: `${path}/email`,
-                            state: { from: location },
-                        }}/>
+                        <Redirect to={{ pathname: `${path}/email` }}/>
                     )
                 }}
             />
             <Route path={`${path}/*`}>
-                <div>Not Found</div>
+                <Redirect to={{ pathname: `${path}/email` }}/>
             </Route>
         </Switch>
     );

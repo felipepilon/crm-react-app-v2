@@ -1,25 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AppRouter from './AppRouter';
 import { Box } from '@material-ui/core';
-import FullPageLoader from './components/FullPageLoader';
-import FullPageLoaderV2 from './v2/components/FullPageLoader';
+import FullPageLoader from './v2/components/FullPageLoader';
 import AppStateDialog from './v2/components/AppStateDialog';
-import { AppStateContext } from './contexts/AppState';
+import { AppStateContext } from './v2/contexts/AppState';
+import { AuthContext } from './contexts/Auth';
+import SuccessSnack from './v2/components/SuccessSnack';
 
-function App() {
-  const { status } = useContext(AppStateContext);
+const loadingStatus = '_App';
+
+const App = () => {
+  const { addStatus, removeStatus } = useContext(AppStateContext);
+  const { loading } = useContext(AuthContext);
+
+  useEffect(() => {
+  if (loading)
+    addStatus(loadingStatus)
+  else
+    removeStatus(loadingStatus);
+  // eslint-disable-next-line
+  }, [loading]);
 
   return (
     <Box
       minHeight='100vh'
       height='100vh'
     >
-      {
-        status !== 'initiating' && <AppRouter/>
-      }
+      { !loading && <AppRouter/> }
       <FullPageLoader/>
-      <FullPageLoaderV2/>
       <AppStateDialog/>
+      <SuccessSnack/>
     </Box>
   )
 }

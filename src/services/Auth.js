@@ -20,8 +20,8 @@ export const get_AuthUser = () => {
     .catch(handleError);
 }
 
-export const post_SignIn = ({email, password}) => {
-    return api.post('v2/auth/signIn', {email, password})
+export const post_SignIn = ({email, password, password_new, password_confirm}) => {
+    return api.post('v2/auth/signIn', {email, password, password_new, password_confirm})
     .then((res) => {
         if (res.data && res.data.refresh_token)
             setRefreshToken(res.data.refresh_token);

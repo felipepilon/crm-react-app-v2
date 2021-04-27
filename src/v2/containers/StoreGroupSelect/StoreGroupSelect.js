@@ -51,7 +51,7 @@ const StoreGroupSelect = () => {
 
             if (res.length === 1) {
                 setStoreGroup(res[0]);
-                hist.replace(`/v2/${res[0].store_group_code}/workspace`, loc.state);
+                hist.replace(`/${res[0].store_group_code}/workspace`, loc.state);
             } else {
                 setOptions(res)
             }
@@ -81,7 +81,7 @@ const StoreGroupSelect = () => {
                                 return (
                                     <Link key={opt.store_group_code} component={LinkRouter} 
                                         to={{
-                                        pathname: `/v2/${opt.store_group_code}/workspace`,
+                                        pathname: `/${opt.store_group_code}/workspace`,
                                         state: { ...loc.state, from: loc }
                                     }}>
                                         <ListItem button>

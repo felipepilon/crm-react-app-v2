@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 const DialogFormControl = ({title, required, error, control}) => {
     return (
-        <Box display='flex' alignItems='center' width='100%'>
+        <Box display='flex' alignItems='center' width='100%' marginTop={1}>
             <Typography variant='body1' style={{width: '30%'}}>
                 {
                     title &&

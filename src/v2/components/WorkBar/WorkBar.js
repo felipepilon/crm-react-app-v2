@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Typography, useTheme } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import CustomerSearchToContact from '../CustomerSearchToContact';
 import MenuButton from '../MenuDrawer/MenuButton';
-import LoginMenu from '../../../containers/workspace/LoginMenu';
 
 const WorkBar = () => {
     const theme = useTheme();
@@ -17,7 +16,6 @@ const WorkBar = () => {
                     /*<img src={require('./home-bar.png')} height='45px' style={{marginLeft: theme.spacing(1), marginRight: theme.spacing(3)}} alt=''/>*/
                 }
                 <CustomerSearchToContact/>
-                <LoginMenu/>
             </Toolbar>
         </AppBar>
      );

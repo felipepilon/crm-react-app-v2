@@ -13,8 +13,7 @@ import AuthContextProvider, { AuthContext } from './contexts/Auth';
 import { IntlProvider } from 'react-intl';
 
 import intlPtBrLocale from './locales/pt-br';
-import AppStateContextProvider from './contexts/AppState';
-import AppStateContextProviderV2 from './v2/contexts/AppState';
+import AppStateContextProvider from './v2/contexts/AppState';
 
 import AbilityContextProvider from './contexts/Can';
 
@@ -41,7 +40,6 @@ const theme = createMuiTheme({
 ReactDOM.render(
     <BrowserRouter>
       <AppStateContextProvider>
-        <AppStateContextProviderV2>
         <AbilityContextProvider>
           <AuthContextProvider>
             <AuthContext.Consumer>{() => (
@@ -61,7 +59,6 @@ ReactDOM.render(
             )}</AuthContext.Consumer>
           </AuthContextProvider>
         </AbilityContextProvider>
-        </AppStateContextProviderV2>
       </AppStateContextProvider>
     </BrowserRouter>,
   document.getElementById('root')
