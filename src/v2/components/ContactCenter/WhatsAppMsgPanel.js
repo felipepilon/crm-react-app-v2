@@ -27,19 +27,19 @@ const WhatsAppMsgPanel = ({
     const [ loading, setLoading ] = useState(true);
     const [ msgPresetDialogOpen, setMsgPresetDialogOpen ] = useState(false);
 
-    const handleStatusChange = (status) => setPanelState({ ...panelState, ...{status}, });
+    const handleStatusChange = (status) => setPanelState((prevPanelState) => ({ ...prevPanelState, status }));
 
-    const handleOpenWhatsAppChange = (open_whatsapp) => setPanelState({ ...panelState, ...{open_whatsapp}, });
+    const handleOpenWhatsAppChange = (open_whatsapp) => setPanelState((prevPanelState) => ({ ...prevPanelState, open_whatsapp }));
 
-    const handleOutMsgChange = (out_msg) => setPanelState({ ...panelState, ...{out_msg}, });
+    const handleOutMsgChange = (out_msg) => setPanelState((prevPanelState) => ({ ...prevPanelState, out_msg }));
 
-    const handleFeedbackChange = (feedback) => setPanelState({ ...panelState, ...{feedback}, });
+    const handleFeedbackChange = (feedback) => setPanelState((prevPanelState) => ({ ...prevPanelState, feedback }));
 
-    const handleAnotherFeedbackChange = (another_feedback) => setPanelState({ ...panelState, ...{another_feedback}, });
+    const handleAnotherFeedbackChange = (another_feedback) => setPanelState((prevPanelState) => ({ ...prevPanelState, another_feedback }));
     
-    const handleReminderDateChange = (reminder_date) => setPanelState({ ...panelState, ...{reminder_date}, });
+    const handleReminderDateChange = (reminder_date) => setPanelState((prevPanelState) => ({ ...prevPanelState, reminder_date }));
 
-    const handleNotesChange = (notes) => setPanelState({ ...panelState, ...{notes}, });
+    const handleNotesChange = (notes) => setPanelState((prevPanelState) => ({ ...prevPanelState, notes }));
 
     useEffect(() => {
         setLoading(true);
@@ -269,9 +269,11 @@ const WhatsAppMsgPanel = ({
 
     useEffect(() => {
         if (errors.out_msg)
-            setErrors({ ...errors, ...{out_msg: null}});
+            setErrors({ ...errors, out_msg: null });
     // eslint-disable-next-line
     }, [panelState.out_msg])
+
+    console.log('whatsapp panelState', panelState)
 
     return (
         <Paper style={{ 
