@@ -15,12 +15,12 @@ const WorkspaceHome = () => {
     const theme = useTheme();
 
     return (
-        <Container style={{display: 'flex', paddingTop: theme.spacing(2)}}>
+        <Container style={{display: 'flex', paddingTop: theme.spacing(2), paddingBottom: theme.spacing(2)}}>
             <AgendaSummaryView/>
             <Box width='20%' padding={1}>
                 <Button fullWidth variant='contained' color='primary' href='#'
                     component={RouterLink} to={{
-                        pathname: `/v2/${store_group_code}/workspace/reserves/add`,
+                        pathname: `/${store_group_code}/workspace/reserves/add`,
                         state: { ...loc.state, from: loc }
                     }}
                 >
@@ -28,28 +28,6 @@ const WorkspaceHome = () => {
                 </Button>
             </Box>
         </Container>
-
-        /*
-        <Container style={{display: 'flex', paddingTop: theme.spacing(2)}}>
-            <Agenda/>
-            <Can I='read' a='SalesPanel'>
-                <SalesPanel/>
-            </Can>
-            <Box
-                width='20%'
-                padding={1}
-            >
-                <Button fullWidth variant='contained' color='primary' href='#'
-                    component={RouterLink} to={{
-                        pathname: '/workspace/reserves/add',
-                        state: { ...loc.state, from: loc }
-                    }}
-                >
-                    <FormattedMessage id='New Reserve'/>
-                </Button>
-            </Box>
-        </Container>
-        */
     );
 }
  

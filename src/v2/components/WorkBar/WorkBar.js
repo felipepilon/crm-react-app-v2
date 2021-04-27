@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, useTheme } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import CustomerSearchToContact from '../CustomerSearchToContact';
 import MenuButton from '../MenuDrawer/MenuButton';
-import LoginMenu from '../../../containers/workspace/LoginMenu';
+import LoginMenu from '../LoginMenu';
 
 const WorkBar = () => {
     const theme = useTheme();

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AppStateContext } from '../../../contexts/AppState';
+import { AppStateContext } from '../../contexts/AppState';
 import { Drawer, List, Divider, Box, Typography, useTheme } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import { Can } from '../../../contexts/Can';
@@ -20,6 +20,18 @@ const MenuDrawer = () => {
                 <Typography variant='caption' style={{marginLeft: theme.spacing(2)}}>v2.0</Typography>
                 <List>
                     <MenuItem title='Workspace' to='' iconComp={<HomeIcon/>}/>
+                </List>
+                <Divider/>
+                <List>
+                    <Can I='read' a='Reserve'>
+                        <MenuItem title='Reserves' to='/reserves'/>
+                    </Can>
+                    <Can I='read' a='Contact'>
+                        <MenuItem title='Contacts' to='/contacts'/>
+                    </Can>
+                    <Can I='read' a='Sales'>
+                        <MenuItem title='Sales' to='/sales'/>
+                    </Can>
                 </List>
                 <Divider/>
                 <List>
