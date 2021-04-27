@@ -17,7 +17,7 @@ const ContactTopics = ({
             margin: theme.spacing(1), padding: theme.spacing(1), 
             boxSizing: 'border-box', position: 'relative'
         }}>
-            <Typography variant='subtitle1'><FormattedMessage id='Topics'/></Typography>
+            <Typography variant='subtitle1'><FormattedMessage id='Highlights'/></Typography>
             <BirthdayMessage customer={customer}/>
             <LastContact store_group_code={store_group_code} customer={customer}
                 contactsLastUpdate={contactsLastUpdate}
