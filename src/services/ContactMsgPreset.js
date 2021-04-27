@@ -2,7 +2,7 @@
 import { handleResponse, handleError } from '../utils/ResponseHandler';
 import api from './API';
 
-export const get_ContactMsgPresets = ({store_group_code, params}) => {
+export const get_ContactMsgPresets = ({store_group_code, ...params}) => {
     return api.get(`/v2/${store_group_code}/contactMsgPresets`, {params})
     .then(handleResponse)
     .catch(handleError);

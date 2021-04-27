@@ -54,15 +54,20 @@ const EnhancedTable = ({
         if (typeof dense === 'boolean')
             _setDense(dense);
     }, [dense]);
+
     useEffect(() => { 
         if (typeof rowsPerPage === 'number')
             _setRowsPerPage(rowsPerPage) ;
     }, [rowsPerPage]);
 
     useEffect(() => {
+        console.log('params', match.params);
+        console.log('filters', filters);
+
         if (noLoadData) {
-            if (_data.length)
+            if (_data.length) {
                 setData([]);
+            }
         } 
         else if (filters && getDataFnc && setData) {
             _setLoading(true);
@@ -86,7 +91,16 @@ const EnhancedTable = ({
             }, 1000);
         }
     // eslint-disable-next-line
-    }, [filters, lastUpdate, noLoadData])
+    }, [filters, lastUpdate, noLoadData]);
+
+    useEffect(() => {
+        if (hidePagination && !rowsPerPage)
+        {
+            console.log('updatePagination data length', data.length)
+            _setRowsPerPage(data.length + 1);
+        }
+    // eslint-disable-next-line
+    }, [data.length])
 
     if (hideNoData && !_data.length)
         return null
