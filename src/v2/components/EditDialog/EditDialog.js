@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useRouteMatch } from 'react-router';
 import { AppStateContext } from '../../contexts/AppState';
 import DialogForm from '../DialogForm';
@@ -14,13 +14,16 @@ const EditDialog = ({
     const { setError: setErrorContext } = useContext(AppStateContext);
 
     const match = useRouteMatch();
+    const intl = useIntl();
     
     const [_values, _setValues] = useState(values || {});
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(null);
 
+    const _modelTitle = intl.formatMessage({id: modelTitle})
+
     const loadValues = () => {
-        setLoading(['Loading {modelTitle}', {modelTitle}]);
+        setLoading(['Loading {modelTitle}', { modelTitle: _modelTitle }]);
         setError({});
 
         if (action === 'update') {
@@ -53,7 +56,7 @@ const EditDialog = ({
     const _handleSubmit = (e) => {
         e.preventDefault();
 
-        setLoading(['Updating {modelTitle}', {modelTitle}]);
+        setLoading(['Updating {modelTitle}', { modelTitle: _modelTitle }]);
 
         if (!editFnc) {
             console.error('No update function found (editFnc)');
@@ -63,8 +66,8 @@ const EditDialog = ({
 
         editFnc({
             ...match.params,
-            [rowId]: values && rowId && values[rowId],
-            ..._values
+            [rowId]: values[rowId],
+            values: _values
         })
         .then(() => {
             setLoading(null);
@@ -99,7 +102,7 @@ const EditDialog = ({
     const _title = title || (action === 'add' ? 'Add {modelTitle}' : 'Update {modelTitle}');
 
     return (
-        <DialogForm open={open} title={_title} titleValues={{modelTitle}}
+        <DialogForm open={open} title={_title} titleValues={{ modelTitle: _modelTitle }}
             handleClose={_handleClose}
             handleSubmit={_handleSubmit}
             actions={

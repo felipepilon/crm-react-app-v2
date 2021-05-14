@@ -2,8 +2,14 @@
 import { handleResponse, handleError } from '../utils/ResponseHandler';
 import api from './API';
 
-export const post_Customer = (params) => {
-    return api.post('/customers', params)
+export const post_Customer = ({store_group_code, values}) => {
+    return api.post(`/v2/${store_group_code}/customers`, values)
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export const put_Customer = ({store_group_code, customer_code, values}) => {
+    return api.put(`/v2/${store_group_code}/customers/${customer_code}`, values)
     .then(handleResponse)
     .catch(handleError);
 }

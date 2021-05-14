@@ -50,7 +50,7 @@ const CustomerContact = () => {
                 </Typography>
             </Box>
             <Box display='flex'>
-                <CustomerDataPaper customer={customer} handleLoadCustomer={handleLoadCustomer}/>
+                <CustomerDataPaper customer={customer} handleCustomerUpdated={handleLoadCustomer}/>
                 <ContactCenter store_group_code={store_group_code} customer={customer}
                     setContactsLastUpdate={setContactsLastUpdate}
                 />

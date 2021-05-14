@@ -19,6 +19,9 @@ const AppRouter = () => {
             <PrivateRoute path='/:store_group_code/workspace'>
                 <Workspace/>
             </PrivateRoute>
+            <PrivateRoute path='/' exact>
+                <StoreGroupSelect/>
+            </PrivateRoute>
             <Route path='*'>
                 <NotFound/>
             </Route>

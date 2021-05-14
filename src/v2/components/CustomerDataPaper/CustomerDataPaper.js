@@ -3,9 +3,9 @@ import { Paper, Typography, useTheme, Box, Button } from '@material-ui/core';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import LabelMasks from '../../../utils/LabelMasks';
 import { Fragment } from 'react';
-//import CustomerEditDialog from '../customer/CustomerEditDialog';
+import CustomerEditDialog from '../CustomerEditDialog';
 
-const CustomerDataPaper = ({customer, handleLoadCustomer}) => {
+const CustomerDataPaper = ({customer, handleCustomerUpdated}) => {
     const theme = useTheme();
     
     const [openEditCustomer, setOpenEditCustomer] = useState(false);
@@ -63,13 +63,13 @@ const CustomerDataPaper = ({customer, handleLoadCustomer}) => {
                         <Button onClick={(e) => setOpenEditCustomer(true)}><FormattedMessage id='Edit Customer'/></Button>
                     </Box>
                     {
-                        /*openEditCustomer &&
+                        openEditCustomer &&
                         <CustomerEditDialog
-                            customer_id={customer.customer_id}
+                            customer={customer}
                             open={openEditCustomer}
                             handleClose={() => setOpenEditCustomer(false)}
-                            handleCustomerUpdated={handleLoadCustomer}
-                        />*/
+                            handleCustomerUpdated={handleCustomerUpdated}
+                        />
                     }
                 </Fragment>
             }
