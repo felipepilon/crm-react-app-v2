@@ -1,5 +1,5 @@
 
-const maskCnpj = [
+const cnpj = [
     /\d/, /\d/, '.',
     /\d/, /\d/, /\d/, /\d/, '.',
     /\d/, /\d/, /\d/, /\d/, '/',
@@ -7,34 +7,36 @@ const maskCnpj = [
     /\d/, /\d/,
 ];
 
-const maskCpf = [
+const cpf = [
     /\d/, /\d/, /\d/, '.',
     /\d/, /\d/, /\d/, '.',
     /\d/, /\d/, /\d/, '-',
     /\d/, /\d/,
 ];
 
-const maskPhoneHome = [
+const phoneHome = [
     '(', /\d/, /\d/, ')', ' ',
     /\d/, /\d/, /\d/, /\d/, ' ',
     /\d/, /\d/, /\d/, /\d/,
 ];
 
-const maskPhoneMobile = [
+const phoneMobile = [
     '(', /[1-9]/, /[1-9]/, ')', ' ',
     /[1-9]/, ' ',
     /\d/, /\d/, /\d/, /\d/, ' ',
     /\d/, /\d/, /\d/, /\d/,
 ];
 
-const cnpj = (value) => maskCnpj;
+const zip = [
+    /\d/, /\d/, /\d/, /\d/, /\d/, '-',
+    /\d/, /\d/, /\d/
+];
 
-const cpf = (value) => maskCpf;
-
-const phone = (value) => value.length !== 10 ? maskPhoneMobile : maskPhoneHome;
-
-export default {
-    cnpj,
-    phone,
-    cpf,
+const InputMasks = {
+    cnpj: () => cnpj,
+    cpf: () => cpf,
+    phone: (value) => value.length !== 10 ? phoneMobile : phoneHome,
+    zip: () => zip
 }
+
+export default InputMasks;
